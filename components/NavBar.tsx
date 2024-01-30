@@ -27,6 +27,8 @@ const NavBar = () => {
         <Link href="/">DEEP PHARMA</Link>
       </h1>
       <div className="flex gap-3">
+      <Link href="/home">Home</Link>
+      <Link href="/product">Product</Link>
         <Link
           className="py-2 px-6 rounded-lg bg-sky-700 text-white"
           href="/api/auth/logout"

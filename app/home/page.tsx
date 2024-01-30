@@ -1,17 +1,38 @@
 'use client'
+import { useEffect } from 'react';
 import { useUser } from "@auth0/nextjs-auth0/client";
+import { fetchToken } from '@/lib/fetch/fetchToken';
 
 
-const HomeScreen = () => {
-    const { user, error, isLoading } = useUser();
+const HomePage = () => {
+  const { user, error, isLoading } = useUser();
+  
 
-    return (
-        <section>
-            <h1>Hola Bruno</h1>
-            <p>{user?.email}</p>
-            <p>{user?.name}</p>
-        </section>
-    );
+  useEffect(() => {
+    const getToken = async () => {
+      if (user) {
+        try {
+          await fetchToken();
+        } catch (err) {
+          console.error('Error al obtener el token:', err);
+        }
+      }
+    };
+
+    getToken();
+  }, [user]);
+
+
+
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>{error.message}</div>;
+
+  return (
+    <div>
+      <div>{user?.name}</div>
+      <div>{user?.email}</div>
+    </div>
+  );
 };
 
-export default HomeScreen
+export default HomePage;
