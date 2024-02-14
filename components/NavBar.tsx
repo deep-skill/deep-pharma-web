@@ -46,6 +46,9 @@ const NavBar = () => {
       <Button variant="outlined"  placeholder={undefined}>
         <Link href="/product">Product</Link>
       </Button>
+      <Link href="/product-form" className='text-black' >
+          Crear producto
+        </Link>
       <Button variant="filled"  color='orange' placeholder={undefined}>
       <Link
           className="py-2 px-6 rounded-lg bg-sky-700 text-white"
