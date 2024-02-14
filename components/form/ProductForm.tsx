@@ -2,14 +2,18 @@
 
 import { Brand } from "@/interface/brand/brand";
 import { Presentation } from "@/interface/presentation/presentation";
+import { Type } from "@/interface/type/type";
 import { getAllBrand } from "@/lib/fetch/brand/brand";
 import { getAllPresentation } from "@/lib/fetch/presentation/presentation";
+import { getAllType } from "@/lib/fetch/type/type";
 import { Input, Select, Option, Checkbox, Button  } from "@material-tailwind/react";
 import { useEffect, useState } from "react";
 
 const ProductForm = () => {
   const [brands, setBrands] = useState<Brand[]>([]);
   const [presentation, setPresentation] = useState<Presentation[]>([]);
+  const [type, setType] = useState<Type[]>([]);
+
   useEffect(() => {
     const fetchDataBrand = async () => {
       try {
@@ -29,10 +33,21 @@ const ProductForm = () => {
       }
     };
 
+    const fetchDataType = async () => {
+      try {
+        const typeData = await getAllType();
+        setType(typeData);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchDataType();
     fetchDataPresentation();
     fetchDataBrand();
   }, [])
-  console.log(brands)
+  
+
   return (
     <form className="flex flex-col gap-4 justify-center items-center p-4">
       <div className="">
@@ -43,9 +58,11 @@ const ProductForm = () => {
       </div>
       <div className="">
       <Select label="Categoria*" placeholder={undefined} >
-        <Option >Farmacos</Option>
-        <Option>Higiene personal</Option>
-        <Option>Otros</Option>
+        {
+          type.map((type) => (
+            <Option key={type.id}>{type.name}</Option>
+          ))
+        }
       </Select>
     </div>
     <div className="">
