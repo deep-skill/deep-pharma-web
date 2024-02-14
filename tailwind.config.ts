@@ -8,16 +8,14 @@ const config: Config  = withMT({
   ],
   theme: {
     colors: {
-      transparent: 'transparent',
-      current: 'currentColor',
-      'white': '#ffffff',
-      'purple': '#3f3cbb',
-      'midnight': '#121063',
-      'metal': '#565584',
-      'tahiti': '#3ab7bf',
-      'silver': '#ecebff',
-      'bubble-gum': '#ff77e9',
-      'bermuda': '#78dcca',
+      orange: 'FE4502',
+      black: '212121',
+      white: 'FFFFFF',
+      orange_secundary: 'FE4502',
+      orange_bg: 'FFDFD3',
+      gray: 'D9D9D9',
+
+
     },
     fontFamily: {
       sans: ["Roboto", "sans-serif"],
