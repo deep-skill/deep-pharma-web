@@ -1,14 +1,15 @@
 'use client'
 
 import { Brand } from "@/interface/brand/brand";
+import { Presentation } from "@/interface/presentation/presentation";
 import { getAllBrand } from "@/lib/fetch/brand/brand";
+import { getAllPresentation } from "@/lib/fetch/presentation/presentation";
 import { Input, Select, Option, Checkbox, Button  } from "@material-tailwind/react";
 import { useEffect, useState } from "react";
-import { set } from "react-hook-form";
 
 const ProductForm = () => {
   const [brands, setBrands] = useState<Brand[]>([]);
-
+  const [presentation, setPresentation] = useState<Presentation[]>([]);
   useEffect(() => {
     const fetchDataBrand = async () => {
       try {
@@ -18,6 +19,17 @@ const ProductForm = () => {
         console.log(error);
       }
     };
+
+    const fetchDataPresentation = async () => {
+      try {
+        const presentationData = await getAllPresentation();
+        setPresentation(presentationData);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchDataPresentation();
     fetchDataBrand();
   }, [])
   console.log(brands)
@@ -38,9 +50,11 @@ const ProductForm = () => {
     </div>
     <div className="">
       <Select label="Presentacion*" placeholder={undefined} >
-        <Option>Tableta 10 mg</Option>
-        <Option>Gotas 20 ml</Option>
-        <Option>Otros</Option>
+        {
+          presentation.map((presentation) => (
+            <Option key={presentation.id}>{presentation.name + ' ' + presentation.factor.toString() + ' ' + presentation.concentration }</Option>
+          ))
+        }
       </Select>
     </div>
     <div className="">
