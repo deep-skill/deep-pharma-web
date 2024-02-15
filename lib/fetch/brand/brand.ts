@@ -1,3 +1,4 @@
+'use server'
 import { Brand } from "@/interface/brand/brand";
 //import { cookies } from "next/headers";
 

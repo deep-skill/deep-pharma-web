@@ -1,4 +1,5 @@
 export interface CreateProductDto {
+    product_id: number
     name: string
     description: string
     additional_info: string
