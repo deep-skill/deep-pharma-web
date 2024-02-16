@@ -16,6 +16,10 @@ import { useStore } from '@/store/zustaban';
 import { useState } from 'react';
 import Image from 'next/image';
 import { IoHomeOutline } from 'react-icons/io5';
+import { FiPackage } from 'react-icons/fi';
+import { MdOutlineUpdate, MdPointOfSale } from 'react-icons/md';
+import { usePathname } from 'next/navigation';
+import { IoIosClose } from 'react-icons/io';
 const NavBar = () => {
   const { user, error, isLoading } = useUser();
   const bears = useStore((state: any) => state.bears);
@@ -23,9 +27,8 @@ const NavBar = () => {
   const [open, setOpen] = useState(false);
   const openDrawer = () => setOpen(true);
   const closeDrawer = () => setOpen(false);
-
+  const pathName = usePathname();
   if (error != null) return <div>{error.message}</div>;
-
   if (user == null) {
     return (
       <nav className="flex flex-row  m-2 p-2 justify-between gap-2">
@@ -43,59 +46,73 @@ const NavBar = () => {
   }
 
   return (
-    <nav className="flex flex-row  m-2 p-2 justify-between gap-2  ">
+    <nav className="flex flex-row  m-2 p-2 justify-between gap-2 text-white ">
       <div>
-        <h2 className="text-lg">
+        <h2 className="text-lg text-black">
           <Link href="/">Bienvenido</Link>
         </h2>
-        <h1 className="text-xl font-semibold">Botica global salud</h1>
+        <h1 className="text-xl font-semibold text-black">
+          Botica global salud
+        </h1>
       </div>
 
-      <a href="#buttons-with-link">
-        <FaRegUserCircle size={60} onClick={openDrawer} color="#FE4502" />
-      </a>
+      <FaRegUserCircle size={60} onClick={openDrawer} color="#FE4502" />
+
       <Drawer
         open={open}
         onClose={closeDrawer}
-        className="p-4 bg-blue-gray-600"
+        className="p-4 bg-orange"
         placeholder={''}
       >
         <div className="mb-6 flex items-center justify-between">
           <Image src={dLogo} alt="logo" />
           <Image src={deepPharmaImg} alt="logo" />
 
-          <IconButton
-            placeholder={''}
-            variant="text"
-            color="blue-gray"
-            onClick={closeDrawer}
-          >
-            X
-          </IconButton>
+          <IoIosClose size={40} />
         </div>
 
         <div className="flex flex-col items-start gap-2 h-full w-full">
-          <div className="flex items-center">
-            <IoHomeOutline />
-            <Button placeholder={''} size="sm" variant="outlined">
-              Inicio
-            </Button>
+          <div
+            className={`flex items-center p-3 w-full ${
+              pathName === '/home'
+                ? 'bg-white text-blue-gray-900 rounded-full font-semibold'
+                : ''
+            }`}
+          >
+            <IoHomeOutline className="mr-2" />
+            <Link href={'/home'}>Inicio </Link>
           </div>
 
-          <div className="flex items-center">
-            <Button placeholder={''} size="sm" variant="outlined">
-              Inventario
-            </Button>
+          <div
+            className={`flex items-center p-3 w-full ${
+              pathName === '/inventory'
+                ? 'bg-white text-blue-gray-900 rounded-full'
+                : ''
+            }`}
+          >
+            <FiPackage className="mr-2" />
+            <Link href={'/inventory'}>Inventario</Link>
           </div>
-          <Button placeholder={''} size="sm">
-            Ventas
-          </Button>
-          <Button placeholder={''} size="sm">
-            Historial de ventas
-          </Button>
-          <IconButton placeholder={''} color="blue">
-            <i className="fas fa-heart" />
-          </IconButton>
+          <div
+            className={`flex items-center p-3 w-full ${
+              pathName === '/sales'
+                ? 'bg-white text-blue-gray-900 rounded-full font-semibold'
+                : ''
+            }`}
+          >
+            <MdPointOfSale className="mr-2" />
+            <Link href={'/sales'}>Ventas</Link>
+          </div>
+          <div
+            className={`flex items-center p-3 w-full ${
+              pathName === '/sales-history'
+                ? 'bg-white text-blue-gray-900 rounded-full font-semibold'
+                : ''
+            }`}
+          >
+            <MdOutlineUpdate className="mr-2" />
+            <Link href={'/sales-history'}>Historial de ventas</Link>
+          </div>
         </div>
       </Drawer>
     </nav>
