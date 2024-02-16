@@ -20,7 +20,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <UserProvider>
-      <body >
+      <body className="h-full" >
       <MaterialProvider>
         <NavBar />
         {children}

@@ -8,12 +8,14 @@ const config: Config  = withMT({
   ],
   theme: {
     colors: {
-      orange: 'FE4502',
-      black: '212121',
-      white: 'FFFFFF',
-      orange_secundary: 'FE4502',
-      orange_bg: 'FFDFD3',
-      gray: 'D9D9D9',
+      transparent: 'transparent',
+      current: 'currentColor',
+      'orange': '#ea5923',
+      'black': '212121',
+      'white': '#ffffff',
+      'orange_secundary': 'FE4502',
+      'orange_bg': 'FFDFD3',
+      'gray': 'D9D9D9',
 
 
     },
