@@ -14,6 +14,7 @@ const config: Config = withMT({
       orange_secundary: 'FE4502',
       orange_bg: 'FFDFD3',
       gray: 'D9D9D9',
+      gray_title: '#5b5b5b',
     },
     fontFamily: {
       sans: ['Roboto', 'sans-serif'],

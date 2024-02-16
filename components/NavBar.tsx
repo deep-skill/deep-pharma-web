@@ -2,16 +2,9 @@
 import { useUser } from '@auth0/nextjs-auth0/client';
 import Link from 'next/link';
 import { FaRegUserCircle } from 'react-icons/fa';
-import dLogo from '../assets/image/d.png';
 import deepPharmaImg from '../assets/image/deep_pharma_white.png';
 
-import {
-  Badge,
-  Button,
-  Drawer,
-  IconButton,
-  Typography,
-} from '@material-tailwind/react';
+import { Button, Drawer } from '@material-tailwind/react';
 import { useStore } from '@/store/zustaban';
 import { useState } from 'react';
 import Image from 'next/image';
@@ -32,7 +25,7 @@ const NavBar = () => {
   if (user == null) {
     return (
       <nav className="flex flex-row  m-2 p-2 justify-between gap-2">
-        <h1 className="text-4xl font-semibold">
+        <h1 className="text-4xl font-semibold ">
           <Link href="/">Deep Pharma</Link>
         </h1>
 
@@ -48,27 +41,32 @@ const NavBar = () => {
   return (
     <nav className="flex flex-row  m-2 p-2 justify-between gap-2 text-white ">
       <div>
-        <h2 className="text-lg text-black">
+        <h2 className="text-lg text-gray_title font-semibold md:text-orange">
           <Link href="/">Bienvenido</Link>
         </h2>
-        <h1 className="text-xl font-semibold text-black">
-          Botica global salud
+        <h1 className="text-xl font-bold text-gray_title md:text-orange">
+          Botica Global Salud
         </h1>
       </div>
 
       <FaRegUserCircle size={60} onClick={openDrawer} color="#FE4502" />
 
       <Drawer
+        size={500}
+        placement="right"
         open={open}
         onClose={closeDrawer}
         className="p-4 bg-orange"
         placeholder={''}
       >
         <div className="mb-6 flex items-center justify-between">
-          <Image src={dLogo} alt="logo" />
-          <Image src={deepPharmaImg} alt="logo" />
+          <Image src={deepPharmaImg} alt="logo" width={150} />
 
-          <IoIosClose size={40} />
+          <IoIosClose
+            size={40}
+            onClick={closeDrawer}
+            className="cursor-pointer"
+          />
         </div>
 
         <div className="flex flex-col items-start gap-2 h-full w-full">
@@ -79,7 +77,7 @@ const NavBar = () => {
                 : ''
             }`}
           >
-            <IoHomeOutline className="mr-2" />
+            <IoHomeOutline className="mr-2" size={25} />
             <Link href={'/home'}>Inicio </Link>
           </div>
 
@@ -90,7 +88,7 @@ const NavBar = () => {
                 : ''
             }`}
           >
-            <FiPackage className="mr-2" />
+            <FiPackage className="mr-2" size={25} />
             <Link href={'/inventory'}>Inventario</Link>
           </div>
           <div
@@ -100,7 +98,7 @@ const NavBar = () => {
                 : ''
             }`}
           >
-            <MdPointOfSale className="mr-2" />
+            <MdPointOfSale className="mr-2" size={25} />
             <Link href={'/sales'}>Ventas</Link>
           </div>
           <div
@@ -110,7 +108,7 @@ const NavBar = () => {
                 : ''
             }`}
           >
-            <MdOutlineUpdate className="mr-2" />
+            <MdOutlineUpdate className="mr-2" size={25} />
             <Link href={'/sales-history'}>Historial de ventas</Link>
           </div>
         </div>
