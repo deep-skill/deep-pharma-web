@@ -15,7 +15,9 @@ const config: Config = withMT({
       orange_bg: 'FFDFD3',
       gray: 'D9D9D9',
       gray_title: '#5b5b5b',
+      shadow_carousel: '0 4px 4px 0 rgba(0, 0, 0, 0.25)',
     },
+
     fontFamily: {
       sans: ['Roboto', 'sans-serif'],
     },
