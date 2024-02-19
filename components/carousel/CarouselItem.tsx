@@ -6,20 +6,15 @@ interface Props {
   title: string;
   image: StaticImageData;
 }
+const boxShadowStyle = '0px 4px 4px 0px rgba(0, 0, 0, 0.25)';
 const CarouselItem = ({ url, title, image }: Props) => {
   return (
-    <Link
-      href={`/${url}`}
-      className=" flex flex-col items-center  mx-4 bg-blue-500 "
-    >
-      <div className="bg-yellow-400 w-[64px] h-16 rounded-full flex items-center justify-center">
-        <Image
-          src={image}
-          alt={title}
-          width={45}
-          height={45}
-          className="bg-yellow-500 rounded-full"
-        />
+    <Link href={`/${url}`} className=" flex flex-col items-center h-28 mx-4">
+      <div
+        className=" w-[60px] h-[60px] rounded-full flex items-center justify-center p-2 "
+        style={{ boxShadow: boxShadowStyle }}
+      >
+        <Image src={image} alt={title} />
       </div>
 
       <p className="text-xs text-center my-2">{title}</p>
