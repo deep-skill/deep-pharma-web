@@ -22,7 +22,7 @@ export default function RootLayout({
       <UserProvider>
       <body className="h-full" >
       <MaterialProvider>
-        <NavBar />
+        {/* <NavBar /> */}
         {children}
       </MaterialProvider>
       </body>
