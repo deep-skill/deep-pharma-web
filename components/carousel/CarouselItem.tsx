@@ -10,9 +10,9 @@ const CarouselItem = ({ url, title, image }: Props) => {
   return (
     <Link
       href={`/${url}`}
-      className=" flex flex-col items-center  mx-4 bg-blue-500 px-4"
+      className=" flex flex-col items-center  mx-4 bg-blue-500 "
     >
-      <div className=" shadow-shadow_carousel bg-yellow-400 w-[64px] h-16 rounded-full flex items-center justify-center">
+      <div className="bg-yellow-400 w-[64px] h-16 rounded-full flex items-center justify-center">
         <Image
           src={image}
           alt={title}
