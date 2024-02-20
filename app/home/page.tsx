@@ -8,6 +8,7 @@ import SectionButton from '@/components/section-button/SectionButton';
 import blueBackground from '@/public/images/assets/section-buttons/blue-background.png';
 import hand from '@/public/images/assets/section-buttons/hand.png';
 import orangeBackground from '@/public/images/assets/section-buttons/orange-background.png';
+import greenBackground from '@/public/images/assets/section-buttons/green-background.png';
 import medicinesBag from '@/public/images/assets/section-buttons/medicines-bag.png';
 import calendar from '@/public/images/assets/section-buttons/calendar.png';
 const HomePage = () => {
@@ -31,7 +32,7 @@ const HomePage = () => {
   if (error) return <div>{error.message}</div>;
 
   return (
-    <div>
+    <div className="">
       <NavBar />
       <div>{user?.name}</div>
       <div>{user?.email}</div>
@@ -40,23 +41,23 @@ const HomePage = () => {
       <SectionButton
         title={'Inventario'}
         subTitle={'Revisa, agrega o edita los productos de tu farmacia'}
-        image={blueBackground}
+        image={orangeBackground}
         secImage={hand}
-        color={'bg-orange'}
+        color={'bg-gradient-to-r from-orange via-orange_lite to-orange'}
       />
       <SectionButton
         title={'Crear Venta'}
         subTitle={'Revisa precios y vende de manera rápida'}
         image={blueBackground}
         secImage={medicinesBag}
-        color={'bg-orange'}
+        color={'bg-gradient-to-r from-blue via-blue_lite to-blue'}
       />
       <SectionButton
         title={'Historial de ventas'}
         subTitle={'Verifica la información de las ventas realizadas'}
-        image={blueBackground}
+        image={greenBackground}
         secImage={calendar}
-        color={'bg-orange'}
+        color={'bg-gradient-to-r from-green via-green_lite to-green'}
       />
     </div>
   );

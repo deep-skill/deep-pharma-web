@@ -11,13 +11,16 @@ const config: Config = withMT({
       transparent: 'transparent',
       current: 'currentColor',
       orange: '#ea5923',
+      orange_lite: '#fa8953',
       black: '212121',
       white: '#ffffff',
       orange_secundary: '#fe4502',
       orange_bg: '#ffdfd3',
       gray: '#d9d9d9',
       blue: '#051efe',
+      blue_lite: '#4b62fe',
       green: '#009f36',
+      green_lite: '#1dd51f',
     },
 
     fontFamily: {
