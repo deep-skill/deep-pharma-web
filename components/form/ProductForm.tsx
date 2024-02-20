@@ -3,10 +3,10 @@
 import { Brand } from "@/interface/brand/brand";
 import { Presentation } from "@/interface/presentation/presentation";
 import { CreateProductDto } from "@/interface/product/product";
-import { Type } from "@/interface/type/type";
+import { Category } from "@/interface/category/category";
 import { getAllBrand } from "@/lib/fetch/brand/brand";
 import { getAllPresentation } from "@/lib/fetch/presentation/presentation";
-import { getAllType } from "@/lib/fetch/type/type";
+import { getAllCategory } from "@/lib/fetch/category/category";
 import { Input, Select, Option, Checkbox, Button  } from "@material-tailwind/react";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -14,7 +14,7 @@ import { useForm } from "react-hook-form";
 const ProductForm = () => {
   const [brands, setBrands] = useState<Brand[]>([]);
   const [presentation, setPresentation] = useState<Presentation[]>([]);
-  const [type, setType] = useState<Type[]>([]);
+  const [category, setCategory] = useState<Category[]>([]);
   
   
   const {
@@ -49,8 +49,8 @@ const ProductForm = () => {
 
     const fetchDataType = async () => {
       try {
-        const typeData = await getAllType();
-        setType(typeData);
+        const categoryData = await getAllCategory();
+        setCategory(categoryData);
       } catch (error) {
         console.log(error);
       }
@@ -89,8 +89,8 @@ const ProductForm = () => {
       <div className="">
       <Select label="Categoria*" placeholder={undefined} >
         {
-          type.map((type) => (
-            <Option key={type.id} value={type.id.toString()}>{type.name}</Option>
+          category.map((category) => (
+            <Option key={category.id} value={category.id.toString()}>{category.name}</Option>
           ))
         }
       </Select>
@@ -99,7 +99,7 @@ const ProductForm = () => {
       <Select label="Presentacion*" placeholder={undefined} >
         {
           presentation.map((presentation) => (
-            <Option key={presentation.id} >{presentation.name + ' ' + presentation.factor.toString() + ' ' + presentation.concentration }
+            <Option key={presentation.id} >{presentation.name}
             </Option>
           ))
         }

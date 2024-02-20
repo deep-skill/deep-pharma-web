@@ -1,16 +1,16 @@
-import { Type } from "@/interface/type/type";
+import { Category } from "@/interface/category/category";
 
 
-export const getAllType = async (): Promise<Type[]> => {
+export const getAllCategory = async (): Promise<Category[]> => {
     //const cookieStore = cookies()
     //const token = cookieStore.get('authToken')
     try {
       const res = await fetch(
-        `http://localhost:3001/type`,
+        `http://localhost:3001/category`,
         {
           next: {
             revalidate: 60,
-            tags: ['getAllType']
+            tags: ['getAllCategory']
           }
         }
       );

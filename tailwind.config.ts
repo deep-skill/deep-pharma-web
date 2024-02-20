@@ -8,7 +8,7 @@ const config: Config  = withMT({
   ],
   theme: {
     colors: {
-      orange_primary: 'FE4502',
+      orange_primary: 'fe4502',
       black: '212121',
       white: 'FFFFFF',
       orange_secundary: 'FE4502',
