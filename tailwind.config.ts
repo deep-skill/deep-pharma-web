@@ -11,6 +11,8 @@ const config: Config = withMT({
       transparent: 'transparent',
       current: 'currentColor',
       'orange': '#ea5923',
+      product: '#5b5b5b',
+      productSecundary: '7a7a7a',
       'black': '212121',
       'white': '#ffffff',
       'orange_secundary': 'FE4502',
