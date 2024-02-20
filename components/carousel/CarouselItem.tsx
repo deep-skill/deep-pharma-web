@@ -17,7 +17,9 @@ const CarouselItem = ({ url, title, image }: Props) => {
         <Image src={image} alt={title} />
       </div>
 
-      <p className="text-xs text-center my-2 font-semibold">{title}</p>
+      <p className="text-xs text-center my-2 font-semibold lg:text-md xl:text-lg">
+        {title}
+      </p>
     </Link>
   );
 };

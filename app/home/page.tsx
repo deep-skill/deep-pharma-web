@@ -37,28 +37,29 @@ const HomePage = () => {
       <div>{user?.name}</div>
       <div>{user?.email}</div>
       <Carousel />
-
-      <SectionButton
-        title={'Inventario'}
-        subTitle={'Revisa, agrega o edita los productos de tu farmacia'}
-        image={orangeBackground}
-        secImage={hand}
-        color={'bg-gradient-to-r from-orange via-orange_lite to-orange'}
-      />
-      <SectionButton
-        title={'Crear Venta'}
-        subTitle={'Revisa precios y vende de manera rápida'}
-        image={blueBackground}
-        secImage={medicinesBag}
-        color={'bg-gradient-to-r from-blue via-blue_lite to-blue'}
-      />
-      <SectionButton
-        title={'Historial de ventas'}
-        subTitle={'Verifica la información de las ventas realizadas'}
-        image={greenBackground}
-        secImage={calendar}
-        color={'bg-gradient-to-r from-green via-green_lite to-green'}
-      />
+      <div className="lg:w-8/12 mx-auto">
+        <SectionButton
+          title={'Inventario'}
+          subTitle={'Revisa, agrega o edita los productos de tu farmacia'}
+          image={orangeBackground}
+          secImage={hand}
+          color={'bg-gradient-to-r from-orange via-orange_lite to-orange'}
+        />
+        <SectionButton
+          title={'Crear Venta'}
+          subTitle={'Revisa precios y vende de manera rápida'}
+          image={blueBackground}
+          secImage={medicinesBag}
+          color={'bg-gradient-to-r from-blue via-blue_lite to-blue'}
+        />
+        <SectionButton
+          title={'Historial de ventas'}
+          subTitle={'Verifica la información de las ventas realizadas'}
+          image={greenBackground}
+          secImage={calendar}
+          color={'bg-gradient-to-r from-green via-green_lite to-green'}
+        />
+      </div>
     </div>
   );
 };
