@@ -16,11 +16,7 @@ const CarouselProduct = () => {
                 <Link className="text-white bg-orange p-2 rounded-lg" href={'/'}>Ver detalles</Link>
                 <IoMdAddCircleOutline style={{fontSize: '2rem'}}/>
             </div>
-                       
-
         </div>
-
-        
     )
 }
 
