@@ -1,3 +1,4 @@
+import TitleCategory from "@/components/searchProduct/TitleCategoty";
 
 
 const SearchPage = ({
@@ -13,8 +14,10 @@ const SearchPage = ({
 
     return (
         <div>
-            <h1>Search Page</h1>
+            <TitleCategory title={"Medicamentos"}/>
             <p>Query: {query}</p><p>Page: {page}</p>
         </div>
     );
 };
+
+export default SearchPage
