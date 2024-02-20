@@ -16,12 +16,14 @@ const SearchPage = ({
     return (
         <div>
             <TitleCategory title={"Medicamentos"}/>
-            <div className="flex overflow-x-auto p-4 m-4 md:justify-evenly justify-start gap-4">
-            <CarouselProduct/>
-            <CarouselProduct/>
-            <CarouselProduct/>
-            <CarouselProduct/>
-            <CarouselProduct/>
+            <div className="flex overflow-x-auto p-2 m-2 md:justify-evenly justify-start gap-2">
+                <CarouselProduct/>
+                <CarouselProduct/>
+                <CarouselProduct/>
+                <CarouselProduct/>
+                <CarouselProduct/>
+                <CarouselProduct/>
+                <CarouselProduct/>
             </div>
             <p>Query: {query}</p><p>Page: {page}</p>
         </div>

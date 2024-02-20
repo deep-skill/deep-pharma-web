@@ -4,7 +4,7 @@ import { IoMdAddCircleOutline } from "react-icons/io"
 
 const CarouselProduct = () => {
     return (
-        <div className="flex flex-col w-46 rounded-lg shadow-lg p-4">
+        <div className="flex flex-col w-46 rounded-lg shadow-lg p-2">
             <h3 className="text-lg font-bold text-product">Medicamentos</h3>
             <p className="text-product text-sm">S/ 2.5</p>
             <div className="flex gap-2 justify-between items-center">
