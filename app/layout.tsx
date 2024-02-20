@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { UserProvider } from '@auth0/nextjs-auth0/client';
-import { Inter } from "next/font/google";
 import "./globals.css";
-import NavBar from "@/components/NavBar";
 import MaterialProvider from "@/providers/MaterialProvider";
 
 
@@ -20,9 +18,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <UserProvider>
-      <body >
+      <body className="h-full" >
       <MaterialProvider>
-        <NavBar />
         {children}
       </MaterialProvider>
       </body>
