@@ -9,7 +9,7 @@ import sexualHealth from '../../assets/image/carousel/sexual_health.png';
 
 const Carousel = () => {
   return (
-    <div className="flex overflow-x-auto h-28 my-4">
+    <div className="flex overflow-x-auto h-28 my-4 md:justify-evenly justify-start">
       <CarouselItem url={'medicines'} title={'Medicamentos'} image={medicine} />
       <CarouselItem
         url={'medical-supplies'}

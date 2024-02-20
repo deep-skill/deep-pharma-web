@@ -78,7 +78,9 @@ const NavBar = () => {
             }`}
           >
             <IoHomeOutline className="mr-2" size={25} />
-            <Link href={'/home'}>Inicio </Link>
+            <Link href={'/home'} onClick={closeDrawer}>
+              Inicio{' '}
+            </Link>
           </div>
 
           <div
@@ -89,7 +91,9 @@ const NavBar = () => {
             }`}
           >
             <FiPackage className="mr-2" size={25} />
-            <Link href={'/inventory'}>Inventario</Link>
+            <Link href={'/inventory'} onClick={closeDrawer}>
+              Inventario
+            </Link>
           </div>
           <div
             className={`flex items-center p-3 w-full ${
@@ -99,7 +103,9 @@ const NavBar = () => {
             }`}
           >
             <MdPointOfSale className="mr-2" size={25} />
-            <Link href={'/sales'}>Ventas</Link>
+            <Link href={'/sales'} onClick={closeDrawer}>
+              Ventas
+            </Link>
           </div>
           <div
             className={`flex items-center p-3 w-full ${
@@ -109,7 +115,9 @@ const NavBar = () => {
             }`}
           >
             <MdOutlineUpdate className="mr-2" size={25} />
-            <Link href={'/sales-history'}>Historial de ventas</Link>
+            <Link href={'/sales-history'} onClick={closeDrawer}>
+              Historial de ventas
+            </Link>
           </div>
         </div>
       </Drawer>

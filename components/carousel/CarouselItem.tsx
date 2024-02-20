@@ -11,13 +11,13 @@ const CarouselItem = ({ url, title, image }: Props) => {
   return (
     <Link href={`/${url}`} className=" flex flex-col items-center h-28 mx-4">
       <div
-        className=" w-[60px] h-[60px] rounded-full flex items-center justify-center p-2 "
+        className=" w-[60px] h-[60px] rounded-full flex items-center justify-center p-3 "
         style={{ boxShadow: boxShadowStyle }}
       >
         <Image src={image} alt={title} />
       </div>
 
-      <p className="text-xs text-center my-2">{title}</p>
+      <p className="text-xs text-center my-2 font-semibold">{title}</p>
     </Link>
   );
 };
