@@ -1,6 +1,6 @@
 'use client'
 
-import { BrandForm, CategoryForm, CreateProductDto, PresentationForm } from "@/interface/product/product";
+import { BrandForm, CategoryForm, CreateProductDto, DrugForm, PresentationForm } from "@/interface/product/product";
 import { getAllBrandForm, getAllCategoryForm, getAllDrugForm, getAllPresentationForm } from "@/lib/fetch/product/fetchProduct";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -14,7 +14,7 @@ const FormProduct = () => {
   const [categorys, setCategorys] = useState<CategoryForm[]>([]);
   const [presentations, setPresentations] = useState<PresentationForm[]>([]);
   const [brands, setBrands] = useState<BrandForm[]>([]);
-  const [drugs, setDrugs] = useState<BrandForm[]>([]);
+  const [drugs, setDrugs] = useState<DrugForm[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
