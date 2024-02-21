@@ -1,4 +1,4 @@
-const withMT = require("@material-tailwind/react/utils/withMT");
+const withMT = require('@material-tailwind/react/utils/withMT');
 
 const config: Config = withMT({
   content: [
@@ -8,9 +8,17 @@ const config: Config = withMT({
   ],
   theme: {
     colors: {
-      'orange': '#fc6a05',
-      'white': '#ffffff',
-      'black': '000000',
+      orange: '#fc6a05',
+      orange_lite: '#fa8953',
+      black: '000000',
+      white: '#ffffff',
+      orange_secundary: '#fe4502',
+      gray: '#d9d9d9',
+      grey_title: '#5b5b5b',
+      blue: '#051efe',
+      blue_lite: '#4b62fe',
+      green: '#009f36',
+      green_lite: '#1dd51f',
       'dark_gray': '5b5b5b',
       'light_gray':'f3f3f3',
       'light_peach':'fff0eb'
@@ -21,13 +29,13 @@ const config: Config = withMT({
     },
     extend: {
       boxShadow: {
-        'custom': '0 35px 60px -15px rgba(0, 0, 0, 0.3)',
-      }
+        custom: '0 35px 60px -15px rgba(0, 0, 0, 0.3)',
+      },
     },
   },
   plugins: [],
 });
 
-import type { Config } from "tailwindcss";
+import type { Config } from 'tailwindcss';
 
 export default config;

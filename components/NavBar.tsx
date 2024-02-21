@@ -41,10 +41,10 @@ const NavBar = () => {
   return (
     <nav className="flex flex-row  m-2 p-2 justify-between gap-2 text-white ">
       <div>
-        <h2 className="text-lg text-gray_title font-semibold md:text-orange">
+        <h2 className="text-lg text-grey_title font-semibold md:text-orange ">
           <Link href="/">Bienvenido</Link>
         </h2>
-        <h1 className="text-xl font-bold text-gray_title md:text-orange">
+        <h1 className="text-xl font-bold text-grey_title md:text-orange">
           Botica Global Salud
         </h1>
       </div>
