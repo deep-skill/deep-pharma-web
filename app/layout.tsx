@@ -2,7 +2,6 @@ import type { Metadata } from 'next';
 import { UserProvider } from '@auth0/nextjs-auth0/client';
 import './globals.css';
 import MaterialProvider from '@/providers/MaterialProvider';
-import NavBar from '@/components/NavBar';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
