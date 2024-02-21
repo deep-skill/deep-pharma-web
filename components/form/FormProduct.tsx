@@ -15,7 +15,7 @@ const FormProduct = () => {
   const [presentations, setPresentations] = useState<PresentationForm[]>([]);
   const [brands, setBrands] = useState<BrandForm[]>([]);
   const [drugs, setDrugs] = useState<BrandForm[]>([]);
- 
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -49,8 +49,9 @@ const FormProduct = () => {
         <input
           className="p-2 w-full bg-blue-gray-200"
           {...register('barcode', {
-            required: 'El codigo es obligatorio',
+            required: 'El código es obligatorio',
             valueAsNumber: true,
+            validate: (value) => !isNaN(value) || 'Ingrese un valor numérico válido',
           })}
         />
         {errors.barcode && <p className="text-red-500">{errors.barcode.message}</p>}
@@ -73,11 +74,32 @@ const FormProduct = () => {
         />
         {errors.name && <p className="text-red-500">{errors.name.message}</p>}
       </div>
+      <div className="mb-4">
+        <label htmlFor="description">Producto descripcion</label>
+        <input
+          className="p-2 w-full bg-blue-gray-200"
+          {...register('description', {
+            required: 'El description es obligatorio',
+            minLength: {
+              value: 3,
+              message: 'El nombre debe tener al menos 3 caracter',
+            },
+            maxLength: {
+              value: 50,
+              message: 'El nombre no puede exceder los 50 caracteres',
+            },
+          })}
+        />
+        {errors.name && <p className="text-red-500">{errors.name.message}</p>}
+      </div>
       <div className="flex flex-col">
           <label htmlFor="category">Elija categoria</label>
           <select
             className="p-2"
-            {...register('category_id', { required: true })}
+            {...register('category_id', {
+              required: 'Seleccione una categoría',
+              valueAsNumber: true, 
+            })}
           >
             {categorys.map((category) => (
               <option key={category.id} value={category.id}>
@@ -93,7 +115,10 @@ const FormProduct = () => {
           <label htmlFor="presentacion">Elija presentacion</label>
           <select
             className="p-2"
-            {...register('presentation_id', { required: true })}
+            {...register('presentation_id', { 
+              required: 'Seleccione una presentacion',
+              valueAsNumber: true,  
+            })}
           >
             {presentations.map((presentation) => (
               <option key={presentation.id} value={presentation.id}>
@@ -109,7 +134,10 @@ const FormProduct = () => {
           <label htmlFor="brand">Elija marca</label>
           <select
             className="p-2"
-            {...register('brand_id', { required: true })}
+            {...register('brand_id', { 
+              required: 'Seleccione una marca',
+              valueAsNumber: true, 
+            })}
           >
             {brands.map((brand) => (
               <option key={brand.id} value={brand.id}>
@@ -125,7 +153,10 @@ const FormProduct = () => {
           <label htmlFor="drug">Elija droga</label>
           <select
             className="p-2"
-            {...register('drug_id', { required: true })}
+            {...register('drug_id', { 
+              required: 'Seleccione una categoría',
+              valueAsNumber: true, 
+            })}
           >
             {drugs.map((drug) => (
               <option key={drug.id} value={drug.id}>
