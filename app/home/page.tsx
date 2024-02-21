@@ -11,6 +11,10 @@ import orangeBackground from '@/public/images/assets/section-buttons/orange-back
 import greenBackground from '@/public/images/assets/section-buttons/green-background.png';
 import medicinesBag from '@/public/images/assets/section-buttons/medicines-bag.png';
 import calendar from '@/public/images/assets/section-buttons/calendar.png';
+import Header from '@/components/Header';
+import Profile from '@/components/Profile';
+
+
 const HomePage = () => {
   const { user, error, isLoading } = useUser();
 
@@ -32,10 +36,12 @@ const HomePage = () => {
   if (error) return <div>{error.message}</div>;
 
   return (
-    <div className="">
-      <NavBar />
-      <div>{user?.name}</div>
-      <div>{user?.email}</div>
+
+    <div>
+      <Header />
+      <Profile/>
+      {/* <div>{user?.name}</div>
+      <div>{user?.email}</div> */}
       <Carousel />
       <div className="lg:w-8/12 mx-auto">
         <SectionButton
