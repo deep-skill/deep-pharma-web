@@ -3,6 +3,8 @@ import { useEffect } from 'react';
 import { useUser } from '@auth0/nextjs-auth0/client';
 import { fetchToken } from '@/lib/fetch/fetchToken';
 import Carousel from '@/components/carousel/Carousel';
+import Header from '@/components/Header';
+import Profile from '@/components/Profile';
 
 const HomePage = () => {
   const { user, error, isLoading } = useUser();
@@ -26,8 +28,10 @@ const HomePage = () => {
 
   return (
     <div>
-      <div>{user?.name}</div>
-      <div>{user?.email}</div>
+      <Header />
+      <Profile/>
+      {/* <div>{user?.name}</div>
+      <div>{user?.email}</div> */}
       <Carousel />
     </div>
   );
