@@ -17,6 +17,7 @@ const config: Config = withMT({
       orange_secundary: '#fe4502',
       orange_bg: '#ffdfd3',
       gray: '#d9d9d9',
+      grey_title: '#5b5b5b',
       blue: '#051efe',
       blue_lite: '#4b62fe',
       green: '#009f36',
