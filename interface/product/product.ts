@@ -26,3 +26,8 @@ export interface BrandForm {
   id: number
   name: string
 }
+
+export interface DrugForm{
+  id: number
+  name: string
+}

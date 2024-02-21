@@ -1,7 +1,7 @@
 'use client'
 
-import { CategoryForm, CreateProductDto, PresentationForm } from "@/interface/product/product";
-import { getAllCategoryForm, getAllPresentationForm } from "@/lib/fetch/product/fetchProduct";
+import { BrandForm, CategoryForm, CreateProductDto, PresentationForm } from "@/interface/product/product";
+import { getAllBrandForm, getAllCategoryForm, getAllDrugForm, getAllPresentationForm } from "@/lib/fetch/product/fetchProduct";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
@@ -12,18 +12,24 @@ const FormProduct = () => {
     formState: { errors },
   } = useForm<CreateProductDto>();
   const [categorys, setCategorys] = useState<CategoryForm[]>([]);
-  const [presentation, setPresentation] = useState<PresentationForm[]>([]);
+  const [presentations, setPresentations] = useState<PresentationForm[]>([]);
+  const [brands, setBrands] = useState<BrandForm[]>([]);
+  const [drugs, setDrugs] = useState<BrandForm[]>([]);
  
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [categoryData, presentationData] = await Promise.all([
+        const [categoryData, presentationData, brandData, drugData] = await Promise.all([
           getAllCategoryForm(),
           getAllPresentationForm(),
+          getAllBrandForm(),
+          getAllDrugForm(),
         ]);
-  
+
+        setBrands(brandData);
         setCategorys(categoryData);
-        setPresentation(presentationData);
+        setPresentations(presentationData);
+        setDrugs(drugData);
       } catch (error) {
         console.log(error);
       }
@@ -84,19 +90,51 @@ const FormProduct = () => {
           )}
         </div>
         <div className="flex flex-col">
-          <label htmlFor="category">Elija presentacion</label>
+          <label htmlFor="presentacion">Elija presentacion</label>
           <select
             className="p-2"
             {...register('presentation_id', { required: true })}
           >
-            {presentation.map((presentation) => (
+            {presentations.map((presentation) => (
               <option key={presentation.id} value={presentation.id}>
                 {presentation.name}
               </option>
             ))}
           </select>
-          {errors.category_id && (
-            <p className="text-red-500">{errors.category_id.message}</p>
+          {errors.presentation_id && (
+            <p className="text-red-500">{errors.presentation_id.message}</p>
+          )}
+        </div>
+        <div className="flex flex-col">
+          <label htmlFor="brand">Elija marca</label>
+          <select
+            className="p-2"
+            {...register('brand_id', { required: true })}
+          >
+            {brands.map((brand) => (
+              <option key={brand.id} value={brand.id}>
+                {brand.name}
+              </option>
+            ))}
+          </select>
+          {errors.brand_id && (
+            <p className="text-red-500">{errors.brand_id.message}</p>
+          )}
+        </div>
+        <div className="flex flex-col">
+          <label htmlFor="drug">Elija droga</label>
+          <select
+            className="p-2"
+            {...register('drug_id', { required: true })}
+          >
+            {drugs.map((drug) => (
+              <option key={drug.id} value={drug.id}>
+                {drug.name}
+              </option>
+            ))}
+          </select>
+          {errors.drug_id && (
+            <p className="text-red-500">{errors.drug_id.message}</p>
           )}
         </div>
       <div className="flex flex-col ">
