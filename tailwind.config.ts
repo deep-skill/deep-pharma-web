@@ -19,9 +19,9 @@ const config: Config = withMT({
       blue_lite: '#4b62fe',
       green: '#009f36',
       green_lite: '#1dd51f',
-      'dark_gray': '5b5b5b',
-      'light_gray':'f3f3f3',
-      'light_peach':'fff0eb'
+      dark_gray: '#5b5b5b',
+      light_gray:'#f3f3f3',
+      light_peach:'#fff0eb'
     },
 
     fontFamily: {
