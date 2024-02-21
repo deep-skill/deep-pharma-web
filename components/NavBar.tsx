@@ -71,11 +71,10 @@ const NavBar = () => {
 
         <div className="flex flex-col items-start gap-2 h-full w-full">
           <div
-            className={`flex items-center p-3 w-full ${
-              pathName === '/home'
+            className={`flex items-center p-3 w-full ${pathName === '/home'
                 ? 'bg-white text-blue-gray-900 rounded-full font-semibold'
                 : ''
-            }`}
+              }`}
           >
             <IoHomeOutline className="mr-2" size={25} />
             <Link href={'/home'} onClick={closeDrawer}>
@@ -84,11 +83,10 @@ const NavBar = () => {
           </div>
 
           <div
-            className={`flex items-center p-3 w-full ${
-              pathName === '/inventory'
+            className={`flex items-center p-3 w-full ${pathName === '/inventory'
                 ? 'bg-white text-blue-gray-900 rounded-full'
                 : ''
-            }`}
+              }`}
           >
             <FiPackage className="mr-2" size={25} />
             <Link href={'/inventory'} onClick={closeDrawer}>
@@ -96,11 +94,10 @@ const NavBar = () => {
             </Link>
           </div>
           <div
-            className={`flex items-center p-3 w-full ${
-              pathName === '/sales'
+            className={`flex items-center p-3 w-full ${pathName === '/sales'
                 ? 'bg-white text-blue-gray-900 rounded-full font-semibold'
                 : ''
-            }`}
+              }`}
           >
             <MdPointOfSale className="mr-2" size={25} />
             <Link href={'/sales'} onClick={closeDrawer}>
@@ -108,11 +105,10 @@ const NavBar = () => {
             </Link>
           </div>
           <div
-            className={`flex items-center p-3 w-full ${
-              pathName === '/sales-history'
+            className={`flex items-center p-3 w-full ${pathName === '/sales-history'
                 ? 'bg-white text-blue-gray-900 rounded-full font-semibold'
                 : ''
-            }`}
+              }`}
           >
             <MdOutlineUpdate className="mr-2" size={25} />
             <Link href={'/sales-history'} onClick={closeDrawer}>
