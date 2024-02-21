@@ -3,6 +3,7 @@ import onboardingImg from '@/public/images/assets/onboarding/onboarding-img.png'
 import deepLogo from '@/public/images/assets/deep-skill-logo.png';
 import onboardingVector from '@/public/images/assets/onboarding/onboarding-vector.png';
 import Link from 'next/link';
+import FormProduct from '@/components/form/FormProduct';
 
 const boxShadowStyle = '0px 4px 4px 0px rgba(0, 0, 0, 0.25)';
 
@@ -37,6 +38,7 @@ const OnboardingPage = () => {
       <div className="absolute bottom-0 md:right-0 md:scale-x-[-1] w-1/6">
         <Image src={onboardingVector} alt="Vector" />
       </div>
+      <FormProduct/>
     </>
   );
 };
