@@ -1,4 +1,5 @@
 export interface SearchPresentation {
+    
     id: number,
     name: string
     products:
