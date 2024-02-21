@@ -137,6 +137,14 @@ const FormProduct = () => {
             <p className="text-red-500">{errors.drug_id.message}</p>
           )}
         </div>
+        <div className="flex flex-row">
+          <input type="checkbox" {...register('prescription_required')} />
+          <p>Requiere prescripcion?</p>
+        </div>
+        <div className="flex flex-row">
+          <input type="checkbox" {...register('is_fractionable')} />
+          <p>Es fracionable?</p>
+        </div>
       <div className="flex flex-col ">
         <button className="p-2 m-2 bg-slate-500 rounded" onClick={handleSubmit(onSubmit)}>
           Submit
