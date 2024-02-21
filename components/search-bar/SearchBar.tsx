@@ -1,8 +1,10 @@
 'use client';
+
 import { useSearchParams, usePathname, useRouter } from 'next/navigation';
 import { useTransition } from 'react';
 import { IoMdSearch } from 'react-icons/io';
 import { IoMdCloseCircleOutline } from 'react-icons/io';
+import { useDebouncedCallback } from 'use-debounce';
 
 export default function SearchBar({ placeholder }: { placeholder: string }) {
   const searchParams = useSearchParams();
@@ -10,7 +12,7 @@ export default function SearchBar({ placeholder }: { placeholder: string }) {
   const { replace } = useRouter();
   const [isPending, startTransition] = useTransition();
 
-  const handleSearch = (query: string) => {
+  const handleSearch = useDebouncedCallback((query: string) => {
     const params = new URLSearchParams(searchParams);
     if (query) {
       params.set('query', query);
@@ -20,7 +22,7 @@ export default function SearchBar({ placeholder }: { placeholder: string }) {
     startTransition(() => {
       replace(`${pathname}?${params.toString()}`);
     });
-  };
+  }, 500);
 
   return (
     <div className="w-full">
