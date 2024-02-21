@@ -4,8 +4,6 @@ import { useTransition } from 'react';
 import { IoMdSearch } from 'react-icons/io';
 import { IoMdCloseCircleOutline } from 'react-icons/io';
 
-<IoMdCloseCircleOutline />;
-
 export default function SearchBar({ placeholder }: { placeholder: string }) {
   const searchParams = useSearchParams();
   const pathname = usePathname();
@@ -30,7 +28,7 @@ export default function SearchBar({ placeholder }: { placeholder: string }) {
         <label htmlFor="search" className="sr-only">
           Search Bar
         </label>
-        <div className="rounded-md shadow-sm">
+        <div>
           <div
             className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3"
             aria-hidden="true"
@@ -44,7 +42,7 @@ export default function SearchBar({ placeholder }: { placeholder: string }) {
             type="text"
             name="search"
             id="search"
-            className="h-10 block w-full rounded-t-md bg-gray border-b border-orange pl-9 text-md text-orange placeholder:text-orange "
+            className="h-10 block w-full rounded-t-md bg-gray border-b-2 border-orange pl-9 text-md text-orange placeholder:text-orange outline-none"
             placeholder={placeholder}
             defaultValue={searchParams.get('query')?.toString()}
             onChange={(e) => handleSearch(e.target.value)}

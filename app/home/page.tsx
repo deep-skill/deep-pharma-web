@@ -10,12 +10,11 @@ import Header from '@/components/Header';
 import Profile from '@/components/Profile';
 import SearchBar from '@/components/search-bar/page';
 
-
 const HomePage = () => {
   return (
     <div>
       <Header />
-      <Profile/>
+      <Profile />
       <SearchBar placeholder={'Busca en tu botica'} />
       <Carousel />
       <div className="lg:w-8/12 mx-auto">
