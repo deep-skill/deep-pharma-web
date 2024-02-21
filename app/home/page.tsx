@@ -8,12 +8,15 @@ import medicinesBag from '@/public/images/assets/section-buttons/medicines-bag.p
 import calendar from '@/public/images/assets/section-buttons/calendar.png';
 import Header from '@/components/Header';
 import Profile from '@/components/Profile';
+import UserProfile from '../../components/UserProfile';
 
 
 const HomePage = () => {
   return (
     <div>
+      
       <Header />
+      {/* <UserProfile/> */}
       <Profile/>
       <Carousel />
       <div className="lg:w-8/12 mx-auto">
