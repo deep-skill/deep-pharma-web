@@ -18,7 +18,7 @@ import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { IoCloseCircle } from 'react-icons/io5';
 
-const FormProduct = () => {
+const FormProductFranco = () => {
   const {
     register,
     handleSubmit,
@@ -218,4 +218,4 @@ const FormProduct = () => {
   );
 };
 
-export default FormProduct;
+export default FormProductFranco;
