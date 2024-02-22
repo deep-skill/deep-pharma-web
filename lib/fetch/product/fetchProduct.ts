@@ -10,10 +10,11 @@ export const getAllCategoryForm = async (): Promise<CategoryForm[]> => {
   //const cookieStore = cookies()
   //const token = cookieStore.get('authToken')
   try {
-    const res = await fetch(`http://localhost:3001/category`, {
+    const res = await fetch(`http://localhost:3001/category/select-create-product`, {
       cache: 'force-cache',
     });
     const data = await res.json();
+    console.log(data);
     return data;
   } catch (error) {
     console.log(error);
@@ -27,7 +28,7 @@ export const getAllPresentationForm = async (
   //const cookieStore = cookies()
   //const token = cookieStore.get('authToken')
   try {
-    const res = await fetch(`http://localhost:3001/presentation`, {
+    const res = await fetch(`http://localhost:3001/presentation/select-create-product?query=${query}`, {
       cache: 'force-cache',
     });
     const data = await res.json();
@@ -38,11 +39,11 @@ export const getAllPresentationForm = async (
   }
 };
 
-export const getAllBrandForm = async (): Promise<BrandForm[]> => {
+export const getAllBrandForm = async (query: string): Promise<BrandForm[]> => {
   //const cookieStore = cookies()
   //const token = cookieStore.get('authToken')
   try {
-    const res = await fetch(`http://localhost:3001/brand`, {
+    const res = await fetch(`http://localhost:3001/brand/select-create-product?query=${query}`, {
       cache: 'force-cache',
     });
     const data = await res.json();
@@ -53,11 +54,11 @@ export const getAllBrandForm = async (): Promise<BrandForm[]> => {
   }
 };
 
-export const getAllDrugForm = async (): Promise<DrugForm[]> => {
+export const getAllDrugForm = async (query: string): Promise<DrugForm[]> => {
   //const cookieStore = cookies()
   //const token = cookieStore.get('authToken')
   try {
-    const res = await fetch(`http://localhost:3001/drug`, {
+    const res = await fetch(`http://localhost:3001/drug/select-create-product?query=${query}`, {
       cache: 'force-cache',
     });
     const data = await res.json();

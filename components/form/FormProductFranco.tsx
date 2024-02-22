@@ -28,18 +28,12 @@ const FormProductFranco = () => {
     formState: { errors },
   } = useForm<CreateProductDto>();
   const [categorys, setCategorys] = useState<CategoryForm[]>([]);
-  const [drugs, setDrugs] = useState<DrugForm[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [categoryData, drugData] =
-          await Promise.all([
-            getAllCategoryForm(),
-            getAllDrugForm(),
-          ]);
+        const categoryData =await getAllCategoryForm();
         setCategorys(categoryData);
-        setDrugs(drugData);
       } catch (error) {
         console.log(error);
       }
@@ -53,6 +47,7 @@ const FormProductFranco = () => {
 
   const [selectedBrand, setSelectedBrand] = useState<BrandForm | null>(null);
   const [selectedPresentation, setSelectedPresentation] = useState<PresentationForm | null>(null);
+  const [selectedDrug, setSelectedDrug] = useState<DrugForm | null>(null);
   const handleBrandSelect = (brand: BrandForm) => {
     setValue('brand_id', brand.id);
     setSelectedBrand(brand);
@@ -61,6 +56,11 @@ const FormProductFranco = () => {
   const handlePresentationSelect = (presentation: PresentationForm) => {
     setValue('presentation_id', presentation.id);
     setSelectedPresentation(presentation);
+  };
+
+  const handleDrugSelect = (drug: DrugForm) => {
+    setValue('drug_id', drug.id);
+    setSelectedPresentation(drug);
   };
 
   return (
@@ -74,6 +74,7 @@ const FormProductFranco = () => {
           placeholder="Static"
           icon={<IoCloseCircle />}
           crossOrigin={undefined}
+          error={errors.barcode && true}
           {...register('barcode', {
             required: 'El código es obligatorio',
             valueAsNumber: true,
@@ -157,6 +158,15 @@ const FormProductFranco = () => {
         selectedValue={selectedBrand}
         error={errors.brand_id?.message}
         textSelect="Marca elegida"
+      />
+       <InputSelectComponent
+        label="Elija Droga"
+        placeholder="Droga"
+        fetchOptions={getAllDrugForm}
+        onSelect={handleDrugSelect}
+        selectedValue={selectedDrug}
+        error={errors.drug_id?.message}
+        textSelect="Droga elegida"
       />
       {/* <div className="flex flex-col">
         <label htmlFor="brand">Elija marca</label>

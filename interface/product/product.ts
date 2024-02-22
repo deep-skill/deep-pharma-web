@@ -30,4 +30,5 @@ export interface BrandForm {
 export interface DrugForm{
   id: number
   name: string
+  concentration: string
 }
