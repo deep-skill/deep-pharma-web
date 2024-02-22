@@ -1,7 +1,7 @@
 'use client';
 
 import { useSearchParams, usePathname, useRouter } from 'next/navigation';
-import { useTransition } from 'react';
+import { useState, useTransition } from 'react';
 import { IoMdSearch } from 'react-icons/io';
 import { IoMdCloseCircleOutline } from 'react-icons/io';
 import { useDebouncedCallback } from 'use-debounce';
@@ -11,6 +11,7 @@ export default function SearchBar({ placeholder }: { placeholder: string }) {
   const pathname = usePathname();
   const { replace } = useRouter();
   const [isPending, startTransition] = useTransition();
+  const [query, setQuery] = useState(searchParams.get('query')?.toString());
 
   const handleSearch = useDebouncedCallback((query: string) => {
     const params = new URLSearchParams(searchParams);
@@ -46,8 +47,11 @@ export default function SearchBar({ placeholder }: { placeholder: string }) {
             id="search"
             className="h-10 block w-full rounded-t-md bg-gray border-b-2 border-orange pl-9 text-md text-orange placeholder:text-orange outline-none"
             placeholder={placeholder}
-            defaultValue={searchParams.get('query')?.toString()}
-            onChange={(e) => handleSearch(e.target.value)}
+            onChange={(e) => {
+              setQuery(e.target.value);
+              handleSearch(e.target.value);
+            }}
+            value={query}
           />
         </div>
 
@@ -56,6 +60,10 @@ export default function SearchBar({ placeholder }: { placeholder: string }) {
             <IoMdCloseCircleOutline
               className="mr-3 h-4 w-4 text-orange"
               aria-hidden="true"
+              onClick={() => {
+                setQuery('');
+                handleSearch('');
+              }}
             />
           </div>
         )}
