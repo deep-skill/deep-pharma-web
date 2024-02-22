@@ -13,48 +13,60 @@ import {
   getAllDrugForm,
   getAllPresentationForm,
 } from '@/lib/fetch/product/fetchProduct';
-import { Input } from '@material-tailwind/react';
+import { Input} from '@material-tailwind/react';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { IoCloseCircle } from 'react-icons/io5';
+import InputSelectComponent from './InputSelectComponent';
+
 
 const FormProductFranco = () => {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm<CreateProductDto>();
   const [categorys, setCategorys] = useState<CategoryForm[]>([]);
   const [presentations, setPresentations] = useState<PresentationForm[]>([]);
-  const [brands, setBrands] = useState<BrandForm[]>([]);
   const [drugs, setDrugs] = useState<DrugForm[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [categoryData, presentationData, brandData, drugData] =
+        const [categoryData, brandData, drugData] =
           await Promise.all([
             getAllCategoryForm(),
-            getAllPresentationForm('dsdsd'),
             getAllBrandForm(),
             getAllDrugForm(),
           ]);
-
-        setBrands(brandData);
         setCategorys(categoryData);
-        setPresentations(presentationData);
         setDrugs(drugData);
       } catch (error) {
         console.log(error);
       }
     };
-
     fetchData();
   }, []);
+
+
 
   const onSubmit = (data: CreateProductDto) => {
     console.log(data);
   };
+
+  const [selectedBrand, setSelectedBrand] = useState<BrandForm | null>(null);
+  const [selectedPresentation, setSelectedPresentation] = useState<PresentationForm | null>(null);
+  const handleBrandSelect = (brand: BrandForm) => {
+    setValue('brand_id', brand.id);
+    setSelectedBrand(brand);
+  };
+
+  const handlePresentationSelect = (presentation: PresentationForm) => {
+    setValue('presentation_id', presentation.id);
+    setSelectedPresentation(presentation);
+  };
+
   return (
     <form className="bg-blue-gray-500a p-4">
       <div className="mb-4">
@@ -73,15 +85,6 @@ const FormProductFranco = () => {
               !isNaN(value) || 'Ingrese un valor numérico válido',
           })}
         />
-        {/* <input
-          className="p-2 w-full bg-blue-gray-200"
-          {...register('barcode', {
-            required: 'El código es obligatorio',
-            valueAsNumber: true,
-            validate: (value) =>
-              !isNaN(value) || 'Ingrese un valor numérico válido',
-          })}
-        /> */}
         {errors.barcode && (
           <p className="text-red-500">{errors.barcode.message}</p>
         )}
@@ -141,25 +144,22 @@ const FormProductFranco = () => {
           <p className="text-red-500">{errors.category_id.message}</p>
         )}
       </div>
-      {/* <div className="flex flex-col">
-        <label htmlFor="presentacion">Elija presentacion</label>
-        <select
-          className="p-2"
-          {...register('presentation_id', {
-            required: 'Seleccione una presentacion',
-            valueAsNumber: true,
-          })}
-        >
-          {presentations.map((presentation) => (
-            <option key={presentation.id} value={presentation.id}>
-              {presentation.name}
-            </option>
-          ))}
-        </select>
-        {errors.presentation_id && (
-          <p className="text-red-500">{errors.presentation_id.message}</p>
-        )}
-      </div> */}
+      <InputSelectComponent
+        label="Elija Presetacion"
+        placeholder="Presentacion"
+        fetchOptions={getAllPresentationForm}
+        onSelect={handlePresentationSelect}
+        selectedValue={selectedPresentation}
+        error={errors.presentation_id?.message}
+      />
+      <InputSelectComponent
+        label="Elija marca"
+        placeholder="Marca"
+        fetchOptions={getAllBrandForm}
+        onSelect={handleBrandSelect}
+        selectedValue={selectedBrand}
+        error={errors.brand_id?.message}
+      />
       {/* <div className="flex flex-col">
         <label htmlFor="brand">Elija marca</label>
         <select
