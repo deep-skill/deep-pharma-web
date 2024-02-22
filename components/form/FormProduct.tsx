@@ -16,6 +16,7 @@ import {
 import { Input } from '@material-tailwind/react';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { IoMdCloseCircleOutline } from 'react-icons/io';
 import { IoCloseCircle } from 'react-icons/io5';
 
 const FormProduct = () => {
@@ -57,41 +58,37 @@ const FormProduct = () => {
   };
   return (
     <form className="bg-blue-gray-500a p-4">
-      <div className="mb-4">
-        <label htmlFor="barcode">Codigo de barra</label>
-        <Input
-          variant="static"
-          label="Static"
-          type="number"
-          placeholder="Static"
-          icon={<IoCloseCircle />}
-          crossOrigin={undefined}
-          {...register('barcode', {
-            required: 'El código es obligatorio',
-            valueAsNumber: true,
-            validate: (value) =>
-              !isNaN(value) || 'Ingrese un valor numérico válido',
-          })}
-        />
-        {/* <input
-          className="p-2 w-full bg-blue-gray-200"
-          {...register('barcode', {
-            required: 'El código es obligatorio',
-            valueAsNumber: true,
-            validate: (value) =>
-              !isNaN(value) || 'Ingrese un valor numérico válido',
-          })}
-        /> */}
-        {errors.barcode && (
-          <p className="text-red-500">{errors.barcode.message}</p>
-        )}
+      <div className="relative">
+        <div className="flex w-full flex-col gap-6 pt-4 px-1 mx-2 bg-light_grey text-orange">
+          <Input
+            variant="static"
+            label="Código de barras*"
+            type="number"
+            placeholder="000000"
+            crossOrigin={undefined}
+            {...register('barcode', {
+              required: 'El código es obligatorio',
+              valueAsNumber: true,
+              validate: (value) =>
+                !isNaN(value) || 'Ingrese un valor numérico válido',
+            })}
+          />
+          <IoMdCloseCircleOutline
+            size={25}
+            className="text-orange absolute bottom-4 right-0"
+          />
+        </div>
       </div>
+      {errors.barcode && (
+        <p className="text-red-500">{errors.barcode.message}</p>
+      )}
+
       <div className="mb-4">
         <label htmlFor="name">Nombre Producto</label>
         <input
           className="p-2 w-full bg-blue-gray-200"
           {...register('name', {
-            // required: 'El nombre es obligatorio',
+            required: 'El nombre es obligatorio',
             minLength: {
               value: 3,
               message: 'El nombre debe tener al menos 3 caracter',
@@ -109,7 +106,7 @@ const FormProduct = () => {
         <input
           className="p-2 w-full bg-blue-gray-200"
           {...register('description', {
-            // required: 'El description es obligatorio',
+            required: 'El description es obligatorio',
             minLength: {
               value: 3,
               message: 'El nombre debe tener al menos 3 caracter',
@@ -141,7 +138,7 @@ const FormProduct = () => {
           <p className="text-red-500">{errors.category_id.message}</p>
         )}
       </div>
-      {/* <div className="flex flex-col">
+      <div className="flex flex-col">
         <label htmlFor="presentacion">Elija presentacion</label>
         <select
           className="p-2"
@@ -159,8 +156,8 @@ const FormProduct = () => {
         {errors.presentation_id && (
           <p className="text-red-500">{errors.presentation_id.message}</p>
         )}
-      </div> */}
-      {/* <div className="flex flex-col">
+      </div>
+      <div className="flex flex-col">
         <label htmlFor="brand">Elija marca</label>
         <select
           className="p-2"
@@ -178,8 +175,8 @@ const FormProduct = () => {
         {errors.brand_id && (
           <p className="text-red-500">{errors.brand_id.message}</p>
         )}
-      </div> */}
-      {/* <div className="flex flex-col">
+      </div>
+      <div className="flex flex-col">
         <label htmlFor="drug">Elija droga</label>
         <select
           className="p-2"
@@ -197,7 +194,7 @@ const FormProduct = () => {
         {errors.drug_id && (
           <p className="text-red-500">{errors.drug_id.message}</p>
         )}
-      </div> */}
+      </div>
       <div className="flex flex-row">
         <input type="checkbox" {...register('prescription_required')} />
         <p>Requiere prescripcion?</p>
