@@ -28,16 +28,14 @@ const FormProductFranco = () => {
     formState: { errors },
   } = useForm<CreateProductDto>();
   const [categorys, setCategorys] = useState<CategoryForm[]>([]);
-  const [presentations, setPresentations] = useState<PresentationForm[]>([]);
   const [drugs, setDrugs] = useState<DrugForm[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [categoryData, brandData, drugData] =
+        const [categoryData, drugData] =
           await Promise.all([
             getAllCategoryForm(),
-            getAllBrandForm(),
             getAllDrugForm(),
           ]);
         setCategorys(categoryData);
@@ -48,8 +46,6 @@ const FormProductFranco = () => {
     };
     fetchData();
   }, []);
-
-
 
   const onSubmit = (data: CreateProductDto) => {
     console.log(data);
@@ -151,6 +147,7 @@ const FormProductFranco = () => {
         onSelect={handlePresentationSelect}
         selectedValue={selectedPresentation}
         error={errors.presentation_id?.message}
+        textSelect="Presetacion elegida"
       />
       <InputSelectComponent
         label="Elija marca"
@@ -159,6 +156,7 @@ const FormProductFranco = () => {
         onSelect={handleBrandSelect}
         selectedValue={selectedBrand}
         error={errors.brand_id?.message}
+        textSelect="Marca elegida"
       />
       {/* <div className="flex flex-col">
         <label htmlFor="brand">Elija marca</label>
