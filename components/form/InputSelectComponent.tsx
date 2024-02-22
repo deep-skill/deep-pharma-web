@@ -9,16 +9,18 @@ interface InputSelectComponentProps {
 	onSelect: (value: any) => void;
 	selectedValue: any;
 	error: string | undefined;
+  textSelect: string
 }
 
-const InputSelectComponent: React.FC<InputSelectComponentProps> = ({
+const InputSelectComponent = ({
 	label,
 	placeholder,
 	fetchOptions,
 	onSelect,
 	selectedValue,
 	error,
-}) => {
+  textSelect
+}: InputSelectComponentProps) => {
 	const [inputValue, setInputValue] = useState<string>('');
 	const [options, setOptions] = useState<any[]>([]);
 	const [isOptionsVisible, setIsOptionsVisible] = useState<boolean>(true);
@@ -52,35 +54,48 @@ const InputSelectComponent: React.FC<InputSelectComponentProps> = ({
 		setIsOptionsVisible(false);
 	};
 
+	const handleShowInput = () => {
+		setIsOptionsVisible(true);
+	};
+
 	return (
 		<div className="flex flex-col">
-			<label htmlFor={label}>{label}</label>
-			<Input
-				variant="static"
-				label={label}
-				type="text"
-				placeholder={placeholder}
-				value={inputValue}
-				onChange={handleInputChange} crossOrigin={undefined} />
-			{isOptionsVisible && options.length > 0 && (
-				<Card className="w-full" placeholder={undefined}>
-					<List placeholder={undefined}>
-						{options.map((option) => (
-							<ListItem
-								key={option.id} // Adjust this based on your option structure
-								onClick={() => handleSelect(option)}
-								className={option.id === selectedValue?.id ? 'bg-blue-200' : ''}
-								placeholder={undefined}
-							>
-								{option.name} {/* Adjust this based on your option structure */}
-							</ListItem>
-						))}
-					</List>
-				</Card>
+			{isOptionsVisible ? (
+				<div className="flex flex-col">
+					<Input
+						variant="static"
+						label={label}
+						type="text"
+						placeholder={placeholder}
+						value={inputValue}
+						onChange={handleInputChange} crossOrigin={undefined} />
+					{isOptionsVisible && options.length > 0 && (
+						<Card className="w-full" placeholder={undefined}>
+							<List placeholder={undefined}>
+								{options.map((option) => (
+									<ListItem
+										key={option.id}
+										onClick={() => handleSelect(option)}
+										className={option.id === selectedValue?.id ? 'bg-blue-200' : ''}
+										placeholder={undefined}
+									>
+										{option.name}
+									</ListItem>
+								))}
+							</List>
+						</Card>
+					)}
+					{error && <p className="text-red-500">{error}</p>}
+				</div>
+			) : (
+				<div>
+					<p>{textSelect}: {selectedValue?.name}</p>
+					<button onClick={handleShowInput}>Edit</button>
+				</div>
 			)}
-			{error && <p className="text-red-500">{error}</p>}
 		</div>
 	);
 };
 
 export default InputSelectComponent;
+
