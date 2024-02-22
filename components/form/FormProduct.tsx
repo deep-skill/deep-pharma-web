@@ -58,7 +58,7 @@ const FormProduct = () => {
   };
   return (
     <form className="bg-blue-gray-500a p-4">
-      <div className="relative">
+      <div className="relative mb-4">
         <div className="flex w-full flex-col gap-6 pt-4 px-1 mx-2 bg-light_grey text-orange">
           <Input
             variant="static"
@@ -82,26 +82,60 @@ const FormProduct = () => {
       {errors.barcode && (
         <p className="text-red-500">{errors.barcode.message}</p>
       )}
-
-      <div className="mb-4">
-        <label htmlFor="name">Nombre Producto</label>
-        <input
-          className="p-2 w-full bg-blue-gray-200"
-          {...register('name', {
-            required: 'El nombre es obligatorio',
-            minLength: {
-              value: 3,
-              message: 'El nombre debe tener al menos 3 caracter',
-            },
-            maxLength: {
-              value: 50,
-              message: 'El nombre no puede exceder los 50 caracteres',
-            },
-          })}
-        />
+      <div className="relative mb-4">
+        <div className="flex w-full flex-col gap-6 pt-4 px-1 mx-2 bg-light_grey text-orange">
+          <Input
+            variant="static"
+            label="Nombre del producto*"
+            type="text"
+            placeholder="XXXXXXXXXXXXXXXX"
+            crossOrigin={undefined}
+            {...register('name', {
+              required: 'El nombre es obligatorio',
+              minLength: {
+                value: 3,
+                message: 'El nombre debe tener al menos 3 caracter',
+              },
+              maxLength: {
+                value: 50,
+                message: 'El nombre no puede exceder los 50 caracteres',
+              },
+            })}
+          />
+          <IoMdCloseCircleOutline
+            size={25}
+            className="text-orange absolute bottom-4 right-0"
+          />
+        </div>
         {errors.name && <p className="text-red-500">{errors.name.message}</p>}
       </div>
-      <div className="mb-4">
+      <div className="relative mb-4">
+        <div className="flex w-full flex-col gap-6 pt-4 px-1 mx-2 bg-light_grey text-orange">
+          <Input
+            variant="static"
+            label="Descripcion del producto*"
+            type="text"
+            placeholder="el producto es..."
+            crossOrigin={undefined}
+            {...register('description', {
+              required: 'El description es obligatorio',
+              minLength: {
+                value: 3,
+                message: 'El nombre debe tener al menos 3 caracter',
+              },
+              maxLength: {
+                value: 50,
+                message: 'El nombre no puede exceder los 50 caracteres',
+              },
+            })}
+          />
+          <IoMdCloseCircleOutline
+            size={25}
+            className="text-orange absolute bottom-4 right-0"
+          />
+        </div>
+      </div>
+      {/* <div className="mb-4">
         <label htmlFor="description">Producto descripcion</label>
         <input
           className="p-2 w-full bg-blue-gray-200"
@@ -118,7 +152,7 @@ const FormProduct = () => {
           })}
         />
         {errors.name && <p className="text-red-500">{errors.name.message}</p>}
-      </div>
+      </div> */}
       <div className="flex flex-col">
         <label htmlFor="category">Elija categoria</label>
         <select
