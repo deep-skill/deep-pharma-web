@@ -26,10 +26,10 @@ export const Profile = () => {
   if (isLoading) return (
     <div className='flex flex-row justify-between'>
       <div className='p-4'>
-        <h2 className=" text-xl text-gray_title font-semibold sm:text-orange">
-          <Link href="/" className='text-dark_gray'>Bienvenido</Link>
+        <h2 className=" text-xl text-gray_title font-semibold  text-dark_gray sm:text-orange">
+          <Link href="/">Bienvenido</Link>
         </h2>
-        <h2 className="text-3xl font-bold text-gray_title sm:text-orange">
+        <h2 className="text-3xl font-bold text-gray_title text-dark_gray sm:text-orange">
           Botica Global Salud
         </h2>
       </div>
@@ -42,10 +42,10 @@ export const Profile = () => {
   return (
     <div className='flex flex-row justify-between'>
       <div className='p-4'>
-        <h2 className=" text-xl text-gray_title font-semibold sm:text-orange">
-          <Link href="/" className='text-dark_gray'>Bienvenido</Link>
+        <h2 className=" text-xl text-gray_title font-semibold  text-dark_gray sm:text-orange">
+          <Link href="/">Bienvenido</Link>
         </h2>
-        <h2 className="text-3xl font-bold text-gray_title sm:text-orange text-dark_gray">
+        <h2 className="text-3xl font-bold text-gray_title text-dark_gray sm:text-orange">
           Botica Global Salud
         </h2>
       </div>
