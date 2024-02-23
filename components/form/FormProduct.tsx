@@ -12,10 +12,12 @@ import {
   getAllCategoryForm,
   getAllDrugForm,
   getAllPresentationForm,
+  getCheckBarcode,
 } from '@/lib/fetch/product/fetchProduct';
 import { Input } from '@material-tailwind/react';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { CgDanger } from 'react-icons/cg';
 import { IoMdCloseCircleOutline } from 'react-icons/io';
 import { IoCloseCircle } from 'react-icons/io5';
 
@@ -29,6 +31,9 @@ const FormProduct = () => {
   const [presentations, setPresentations] = useState<PresentationForm[]>([]);
   const [brands, setBrands] = useState<BrandForm[]>([]);
   const [drugs, setDrugs] = useState<DrugForm[]>([]);
+  const [input, setInput] = useState('');
+  const [inputIsCorrect, setInputIsCorrect] = useState(false);
+  const [nameIsCorrect, setNameIsCorrect] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -52,41 +57,72 @@ const FormProduct = () => {
 
     fetchData();
   }, []);
-
+  const handleInput = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    setInput(event.target.value);
+    try {
+      const result = await getCheckBarcode(Number(event.target.value));
+      setInputIsCorrect(result);
+      return result;
+    } catch (error) {
+      console.log(error);
+    }
+    return false;
+  };
   const onSubmit = (data: CreateProductDto) => {
     console.log(data);
   };
   return (
     <form className="bg-blue-gray-500a p-4">
       <div className="relative h-24  flex items-start ">
-        <div className="flex w-full flex-col gap-6 pt-4 px-2  bg-light_grey text-orange">
+        <div
+          className={`flex w-full flex-col gap-6 pt-4 px-2 bg-light_grey ${
+            inputIsCorrect ? 'text-orange' : 'text-red-500 border-red-700'
+          }`}
+        >
           <Input
             variant="static"
             label="Código de barras*"
             type="number"
+            value={input}
             placeholder="000000"
             crossOrigin={undefined}
             {...register('barcode', {
-              required: 'El código es obligatorio',
+              minLength: {
+                value: 6,
+                message: 'El código de barras tiene que tener 6 dígitos',
+              },
               valueAsNumber: true,
+              onChange: handleInput,
               validate: (value) =>
                 !isNaN(value) || 'Ingrese un valor numérico válido',
             })}
           />
-          <IoMdCloseCircleOutline
-            size={25}
-            className="text-orange absolute bottom-14 right-3"
-          />
+          {inputIsCorrect ? (
+            <IoMdCloseCircleOutline
+              size={25}
+              className={`text-orange absolute bottom-14 right-3`}
+            />
+          ) : (
+            <CgDanger
+              size={25}
+              className={`text-red-500 absolute bottom-14 right-3`}
+            />
+          )}
         </div>
-        {errors.barcode && (
+        {(errors.barcode || !inputIsCorrect) && (
           <p className="text-red-500 absolute bottom-2 left-3">
-            {errors.barcode.message}
+            {errors && errors.barcode?.message}{' '}
+            {!inputIsCorrect && 'el codigo ya existe'}
           </p>
         )}
       </div>
 
       <div className="relative h-24  flex items-start ">
-        <div className="flex w-full flex-col gap-6 pt-4 px-2  bg-light_grey text-orange">
+        <div
+          className={`flex w-full flex-col gap-6 pt-4 px-2  bg-light_grey ${
+            errors.name == undefined ? 'text-orange' : 'text-red-500'
+          }`}
+        >
           <Input
             variant="static"
             label="Nombre del producto*"
@@ -95,6 +131,7 @@ const FormProduct = () => {
             crossOrigin={undefined}
             {...register('name', {
               required: 'El nombre es obligatorio',
+
               minLength: {
                 value: 3,
                 message: 'El nombre debe tener al menos 3 caracter',
@@ -105,10 +142,17 @@ const FormProduct = () => {
               },
             })}
           />
-          <IoMdCloseCircleOutline
-            size={25}
-            className="text-orange absolute bottom-14 right-3"
-          />
+          {errors.name == undefined ? (
+            <IoMdCloseCircleOutline
+              size={25}
+              className={`text-orange absolute bottom-14 right-3`}
+            />
+          ) : (
+            <CgDanger
+              size={25}
+              className={`text-red-500 absolute bottom-14 right-3`}
+            />
+          )}
         </div>
         {errors.name && (
           <p className="text-red-500 absolute bottom-2 left-3">
@@ -117,7 +161,11 @@ const FormProduct = () => {
         )}
       </div>
       <div className="relative h-24  flex items-start ">
-        <div className="flex w-full flex-col gap-6 pt-4 px-2  bg-light_grey text-orange">
+        <div
+          className={`flex w-full flex-col gap-6 pt-4 px-2  bg-light_grey ${
+            errors.description == undefined ? 'text-orange' : 'text-red-500'
+          }`}
+        >
           <Input
             variant="static"
             label="Descripcion del producto*"
@@ -136,31 +184,25 @@ const FormProduct = () => {
               },
             })}
           />
-          <IoMdCloseCircleOutline
-            size={25}
-            className="text-orange absolute bottom-14 right-3"
-          />
+          {errors.description == undefined ? (
+            <IoMdCloseCircleOutline
+              size={25}
+              className={`text-orange absolute bottom-14 right-3`}
+            />
+          ) : (
+            <CgDanger
+              size={25}
+              className={`text-red-500 absolute bottom-14 right-3`}
+            />
+          )}
         </div>
+        {errors.description && (
+          <p className="text-red-500 absolute bottom-2 left-3">
+            {errors.description.message}
+          </p>
+        )}
       </div>
-      {/* <div className="mb-4">
-        <label htmlFor="description">Producto descripcion</label>
-        <input
-          className="p-2 w-full bg-blue-gray-200"
-          {...register('description', {
-            required: 'El description es obligatorio',
-            minLength: {
-              value: 3,
-              message: 'El nombre debe tener al menos 3 caracter',
-            },
-            maxLength: {
-              value: 50,
-              message: 'El nombre no puede exceder los 50 caracteres',
-            },
-          })}
-        />
-        {errors.name && <p className="text-red-500">{errors.name.message}</p>}
-      </div> */}
-      <div className="flex flex-col">
+      {/* <div className="flex flex-col">
         <label htmlFor="category">Elija categoria</label>
         <select
           className="p-2"
@@ -235,7 +277,7 @@ const FormProduct = () => {
         {errors.drug_id && (
           <p className="text-red-500">{errors.drug_id.message}</p>
         )}
-      </div>
+      </div> */}
       <div className="flex flex-row">
         <input type="checkbox" {...register('prescription_required')} />
         <p>Requiere prescripcion?</p>
