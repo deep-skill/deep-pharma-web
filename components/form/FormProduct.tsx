@@ -37,8 +37,8 @@ const FormProduct = () => {
           await Promise.all([
             getAllCategoryForm(),
             getAllPresentationForm('dsdsd'),
-            getAllBrandForm(),
-            getAllDrugForm(),
+            getAllBrandForm('ds'),
+            getAllDrugForm('dsd'),
           ]);
 
         setBrands(brandData);
@@ -58,8 +58,8 @@ const FormProduct = () => {
   };
   return (
     <form className="bg-blue-gray-500a p-4">
-      <div className="relative mb-4">
-        <div className="flex w-full flex-col gap-6 pt-4 px-1 mx-2 bg-light_grey text-orange">
+      <div className="relative h-24  flex items-start ">
+        <div className="flex w-full flex-col gap-6 pt-4 px-2  bg-light_grey text-orange">
           <Input
             variant="static"
             label="Código de barras*"
@@ -75,15 +75,18 @@ const FormProduct = () => {
           />
           <IoMdCloseCircleOutline
             size={25}
-            className="text-orange absolute bottom-4 right-0"
+            className="text-orange absolute bottom-14 right-3"
           />
         </div>
+        {errors.barcode && (
+          <p className="text-red-500 absolute bottom-2 left-3">
+            {errors.barcode.message}
+          </p>
+        )}
       </div>
-      {errors.barcode && (
-        <p className="text-red-500">{errors.barcode.message}</p>
-      )}
-      <div className="relative mb-4">
-        <div className="flex w-full flex-col gap-6 pt-4 px-1 mx-2 bg-light_grey text-orange">
+
+      <div className="relative h-24  flex items-start ">
+        <div className="flex w-full flex-col gap-6 pt-4 px-2  bg-light_grey text-orange">
           <Input
             variant="static"
             label="Nombre del producto*"
@@ -104,13 +107,17 @@ const FormProduct = () => {
           />
           <IoMdCloseCircleOutline
             size={25}
-            className="text-orange absolute bottom-4 right-0"
+            className="text-orange absolute bottom-14 right-3"
           />
         </div>
-        {errors.name && <p className="text-red-500">{errors.name.message}</p>}
+        {errors.name && (
+          <p className="text-red-500 absolute bottom-2 left-3">
+            {errors.name.message}
+          </p>
+        )}
       </div>
-      <div className="relative mb-4">
-        <div className="flex w-full flex-col gap-6 pt-4 px-1 mx-2 bg-light_grey text-orange">
+      <div className="relative h-24  flex items-start ">
+        <div className="flex w-full flex-col gap-6 pt-4 px-2  bg-light_grey text-orange">
           <Input
             variant="static"
             label="Descripcion del producto*"
@@ -131,7 +138,7 @@ const FormProduct = () => {
           />
           <IoMdCloseCircleOutline
             size={25}
-            className="text-orange absolute bottom-4 right-0"
+            className="text-orange absolute bottom-14 right-3"
           />
         </div>
       </div>
