@@ -30,9 +30,7 @@ export const getAllCategoryForm = async (): Promise<CategoryForm[]> => {
   //const cookieStore = cookies()
   //const token = cookieStore.get('authToken')
   try {
-    const res = await fetch(`http://localhost:3001/category/select-create-product`, {
-      cache: 'force-cache',
-    });
+    const res = await fetch(`http://localhost:3001/category/select-create-product`);
     const data = await res.json();
     return data;
   } catch (error) {
@@ -47,9 +45,7 @@ export const getAllPresentationForm = async (
   //const cookieStore = cookies()
   //const token = cookieStore.get('authToken')
   try {
-    const res = await fetch(`http://localhost:3001/presentation/select-create-product?query=${query}`, {
-      cache: 'no-store'
-    });
+    const res = await fetch(`http://localhost:3001/presentation/select-create-product?query=${query}`);
     const data = await res.json();
     return data;
   } catch (error) {
@@ -62,9 +58,7 @@ export const getAllBrandForm = async (query: string): Promise<BrandForm[]> => {
   //const cookieStore = cookies()
   //const token = cookieStore.get('authToken')
   try {
-    const res = await fetch(`http://localhost:3001/brand/select-create-product?query=${query}`, {
-      cache: 'no-store',
-    });
+    const res = await fetch(`http://localhost:3001/brand/select-create-product?query=${query}`);
     const data = await res.json();
     return data;
   } catch (error) {
@@ -77,9 +71,7 @@ export const getAllDrugForm = async (query: string): Promise<DrugForm[]> => {
   //const cookieStore = cookies()
   //const token = cookieStore.get('authToken')
   try {
-    const res = await fetch(`http://localhost:3001/drug/select-create-product?query=${query}`, {
-      cache: 'no-store',
-    });
+    const res = await fetch(`http://localhost:3001/drug/select-create-product?query=${query}`)
     const data = await res.json();
     return data;
   } catch (error) {
@@ -91,8 +83,7 @@ export const getAllDrugForm = async (query: string): Promise<DrugForm[]> => {
 export const getCheckBarcode = async (query: number): Promise<boolean> => {
   try {
     const res = await fetch(
-      `http://localhost:3001/product/codebar?query=${query}`,
-      { cache: 'no-store' },
+      `http://localhost:3001/product/codebar?query=${query}`
     );
     const data = await res.json();
     return data;

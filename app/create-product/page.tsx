@@ -1,4 +1,4 @@
-import InputText from '@/components/form/InputText';
+"use client"
 import { Input } from '@material-tailwind/react';
 import React from 'react';
 
