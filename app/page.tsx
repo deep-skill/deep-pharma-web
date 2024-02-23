@@ -39,7 +39,6 @@ const OnboardingPage = () => {
         <Image src={onboardingVector} alt="Vector" />
       </div>
       <FormProduct />
-      {/* <FormProductFranco /> */}
     </>
   );
 };
