@@ -8,13 +8,13 @@ import {
   PresentationForm,
 } from '@/interface/product/product';
 import {
-  CreatedProduct,
+  createdProduct,
   getAllBrandForm,
   getAllCategoryForm,
   getAllDrugForm,
   getAllPresentationForm,
 } from '@/lib/fetch/product/fetchProduct';
-import { Input} from '@material-tailwind/react';
+import { Input } from '@material-tailwind/react';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { IoCloseCircle } from 'react-icons/io5';
@@ -33,7 +33,7 @@ const FormProductFranco = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const categoryData =await getAllCategoryForm();
+        const categoryData = await getAllCategoryForm();
         setCategorys(categoryData);
       } catch (error) {
         console.log(error);
@@ -45,7 +45,7 @@ const FormProductFranco = () => {
   const onSubmit = async (data: CreateProductDto) => {
     setValue('created_by', 1)
     try {
-      const product = await CreatedProduct(data);
+      const product = await createdProduct(data);
       console.log(product)
     } catch (error) {
       console.log(error);
@@ -140,9 +140,9 @@ const FormProductFranco = () => {
         >
           <option value="" >Seleccione Categoría</option>
           {categorys.map((category) => (
-            <option 
-            key={category.id} 
-            value={category.id}
+            <option
+              key={category.id}
+              value={category.id}
             >
               {category.name}
             </option>
@@ -170,7 +170,7 @@ const FormProductFranco = () => {
         error={errors.brand_id?.message}
         textSelect="Marca elegida"
       />
-       <InputSelectComponent
+      <InputSelectComponent
         label="Elija Droga"
         placeholder="Droga"
         fetchOptions={getAllDrugForm}
@@ -189,15 +189,15 @@ const FormProductFranco = () => {
       </div>
       <div className="flex flex-row justify-between items-center">
         <p>Precio de venta sugerido</p>
-        <input 
-        type="number" 
-        className="h-10 block w-full rounded-t-md bg-gray border-b-2 border-orange text-md text-black placeholder:text-black outline-none"
-        {...register('new_price', {
+        <input
+          type="number"
+          className="h-10 block w-full rounded-t-md bg-gray border-b-2 border-orange text-md text-black placeholder:text-black outline-none"
+          {...register('new_price', {
             required: 'El precio es obligatorio',
             valueAsNumber: true,
             validate: (value) =>
               !isNaN(value) || 'Ingrese un valor numérico válido',
-          })}/>
+          })} />
       </div>
       <div className="flex flex-col ">
         <button

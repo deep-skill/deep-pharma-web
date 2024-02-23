@@ -8,7 +8,7 @@ import {
 } from '@/interface/product/product';
 
 
-export const CreatedProduct  = async (createdProduct : CreateProductDto): Promise<any> => {
+export const createdProduct = async (createdProduct: CreateProductDto): Promise<any> => {
   //const cookieStore = cookies()
   //const token = cookieStore.get('authToken')
   try {
@@ -92,7 +92,7 @@ export const getCheckBarcode = async (query: number): Promise<boolean> => {
   try {
     const res = await fetch(
       `http://localhost:3001/product/codebar?query=${query}`,
-      { cache: 'no-store'},
+      { cache: 'no-store' },
     );
     const data = await res.json();
     return data;
