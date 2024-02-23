@@ -9,8 +9,13 @@ import {
   DialogFooter,
 } from "@material-tailwind/react";
 
-export function DialogCreatedProduct() {
-  const [open, setOpen] = React.useState(false);
+interface DialogCreatedProductProps {
+  onClose: () => void;
+  onOpen: boolean;
+}
+
+export function DialogCreatedProduct({ onClose , onOpen}: DialogCreatedProductProps) {
+  const [open, setOpen] = React.useState(onOpen);
 
 
   const handleOpen = () => {
@@ -20,9 +25,6 @@ export function DialogCreatedProduct() {
 
   return (
     <>
-      <button onClick={handleOpen} className=" align-middle select-none font-sans font-bold text-center text-sm py-3 px-6 bg-orange text-white shadow-custom hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] active:opacity-[0.85] active:shadow-none rounded-full">
-        Crear Producto
-      </button>
       <Dialog open={open} handler={handleOpen} placeholder={undefined}>
         <DialogHeader placeholder={undefined}>Confirmacion</DialogHeader>
         <DialogBody placeholder={undefined}>
