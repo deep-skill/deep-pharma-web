@@ -38,7 +38,7 @@ const OnboardingPage = () => {
       <div className="absolute bottom-0 md:right-0 md:scale-x-[-1] w-1/6">
         <Image src={onboardingVector} alt="Vector" />
       </div>
-      <FormProduct />
+      <FormProductFranco />
     </>
   );
 };

@@ -64,6 +64,7 @@ const FormProductFranco = () => {
   const [selectedBrand, setSelectedBrand] = useState<BrandForm | null>(null);
   const [selectedPresentation, setSelectedPresentation] = useState<PresentationForm | null>(null);
   const [selectedDrug, setSelectedDrug] = useState<DrugForm | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
   const handleBrandSelect = (brand: BrandForm) => {
     setValue('brand_id', brand.id);
     setSelectedBrand(brand);
@@ -77,6 +78,12 @@ const FormProductFranco = () => {
   const handleDrugSelect = (drug: DrugForm) => {
     setValue('drug_id', drug.id);
     setSelectedDrug(drug);
+  };
+
+  const handleCategorySelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedCategoryId = parseInt(event.target.value);
+    setValue('category_id', selectedCategoryId);
+    setSelectedCategory(selectedCategoryId);
   };
 
   const handleInput = async (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -226,10 +233,8 @@ const FormProductFranco = () => {
         <label htmlFor="category">Elija categoria</label>
         <select
           className="h-10 block w-full rounded-t-md bg-gray border-b-2 border-orange text-md text-black placeholder:text-black outline-none"
-          {...register('category_id', {
-            required: 'Seleccione una categoría',
-            valueAsNumber: true,
-          })}
+          onChange={handleCategorySelect}
+          value={selectedCategory || ''}
         >
           <option value="" >Seleccione Categoría</option>
           {categorys.map((category) => (
@@ -263,19 +268,24 @@ const FormProductFranco = () => {
         error={errors.brand_id?.message}
         textSelect="Marca elegida"
       />
-      <InputSelectComponent
-        label="Elija Droga"
-        placeholder="Droga"
-        fetchOptions={getAllDrugForm}
-        onSelect={handleDrugSelect}
-        selectedValue={selectedDrug}
-        error={errors.drug_id?.message}
-        textSelect="Droga elegida"
-      />
-      <div className="flex flex-row">
+      {
+        selectedCategory === 1 && <InputSelectComponent
+          label="Elija Droga"
+          placeholder="Droga"
+          fetchOptions={getAllDrugForm}
+          onSelect={handleDrugSelect}
+          selectedValue={selectedDrug}
+          error={errors.drug_id?.message}
+          textSelect="Droga elegida"
+        />
+      }
+      {
+       selectedCategory === 1 && <div className="flex flex-row">
         <input type="checkbox" {...register('prescription_required')} />
         <p>Requiere prescripcion?</p>
       </div>
+      }
+      
       <div className="flex flex-row">
         <input type="checkbox" {...register('is_fractionable')} />
         <p>Es fracionable?</p>
