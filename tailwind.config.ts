@@ -3,13 +3,14 @@ const withMT = require('@material-tailwind/react/utils/withMT');
 const config: Config = withMT({
   content: [
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
-    './components/**/*.{js,ts,jsx,tsx,mdx}',
+    './components/**/**/*.{js,ts,jsx,tsx,mdx}',
     './app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
     colors: {
       orange: '#fc6a05',
       orange_lite: '#fa8953',
+      orange_list_items: '#fff0eb',
       black: '000000',
       white: '#ffffff',
       orange_secundary: '#fe4502',
