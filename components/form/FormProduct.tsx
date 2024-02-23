@@ -32,7 +32,7 @@ const FormProduct = () => {
   } = useForm<CreateProductDto>();
   const [categorys, setCategorys] = useState<CategoryForm[]>([]);
   const [input, setInput] = useState('');
-  const [inputIsCorrect, setInputIsCorrect] = useState(false);
+  const [inputIsCorrect, setInputIsCorrect] = useState<null | boolean>(null);
 
 
   useEffect(() => {
@@ -111,13 +111,14 @@ const FormProduct = () => {
                 value: 6,
                 message: 'El código de barras tiene que tener 6 dígitos',
               },
+              required: 'El codigo de barras es obligatorio',
               valueAsNumber: true,
               onChange: handleInput,
               validate: (value) =>
                 !isNaN(value) || 'Ingrese un valor numérico válido',
             })}
           />
-          {inputIsCorrect ? (
+         {inputIsCorrect === null || inputIsCorrect === true ? (
             <IoMdCloseCircleOutline
               size={25}
               className={`text-orange absolute bottom-14 right-3`}
@@ -129,9 +130,9 @@ const FormProduct = () => {
             />
           )}
         </div>
-        {(errors.barcode || !inputIsCorrect) && (
+        {(errors.barcode || inputIsCorrect === false) && (
           <p className="text-red-500 absolute bottom-2 left-3">
-            {errors && errors.barcode?.message}{' '}
+            {errors.barcode?.message}
             {!inputIsCorrect && 'el codigo ya existe'}
           </p>
         )}

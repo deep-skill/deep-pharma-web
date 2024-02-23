@@ -20,8 +20,8 @@ import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { CgDanger } from 'react-icons/cg';
 import { IoMdCloseCircleOutline } from 'react-icons/io';
-import { IoCloseCircle } from 'react-icons/io5';
 import InputSelectComponent from './InputSelectComponent';
+import { useRouter } from 'next/navigation';
 
 const FormProductFranco = () => {
   const {
@@ -32,8 +32,7 @@ const FormProductFranco = () => {
   } = useForm<CreateProductDto>();
   const [categorys, setCategorys] = useState<CategoryForm[]>([]);
   const [input, setInput] = useState('');
-  const [inputIsCorrect, setInputIsCorrect] = useState(false);
-
+  const [inputIsCorrect, setInputIsCorrect] = useState<null | boolean>(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -41,6 +40,7 @@ const FormProductFranco = () => {
         const categoryData = await getAllCategoryForm();
         setCategorys(categoryData);
         setValue('created_by', 1)
+        setValue('prescription_required', false)
       } catch (error) {
         console.log(error);
       }
@@ -49,10 +49,10 @@ const FormProductFranco = () => {
   }, []);
 
 
-  
-  const onSubmit = async(data: CreateProductDto) => {
+
+  const onSubmit = async (data: CreateProductDto) => {
     console.log(data);
-    
+
     try {
       const product = await createdProduct(data);
       console.log(product)
@@ -102,9 +102,8 @@ const FormProductFranco = () => {
     <form className="bg-blue-gray-500a p-4">
       <div className="relative h-24  flex items-start ">
         <div
-          className={`flex w-full flex-col gap-6 pt-4 px-2 bg-light_grey ${
-            inputIsCorrect ? 'text-orange' : 'text-red-500 border-red-700'
-          }`}
+          className={`flex w-full flex-col gap-6 pt-4 px-2 bg-light_grey ${inputIsCorrect ? 'text-orange' : 'text-red-500 border-red-700'
+            }`}
         >
           <Input
             variant="static"
@@ -118,13 +117,14 @@ const FormProductFranco = () => {
                 value: 6,
                 message: 'El código de barras tiene que tener 6 dígitos',
               },
+              required: 'El codigo de barras es obligatorio',
               valueAsNumber: true,
               onChange: handleInput,
               validate: (value) =>
                 !isNaN(value) || 'Ingrese un valor numérico válido',
             })}
           />
-          {inputIsCorrect ? (
+          {inputIsCorrect === null || inputIsCorrect === true ? (
             <IoMdCloseCircleOutline
               size={25}
               className={`text-orange absolute bottom-14 right-3`}
@@ -136,9 +136,9 @@ const FormProductFranco = () => {
             />
           )}
         </div>
-        {(errors.barcode || !inputIsCorrect) && (
+        {(errors.barcode || inputIsCorrect === false) && (
           <p className="text-red-500 absolute bottom-2 left-3">
-            {errors && errors.barcode?.message}{' '}
+            {errors.barcode?.message}
             {!inputIsCorrect && 'el codigo ya existe'}
           </p>
         )}
@@ -146,9 +146,8 @@ const FormProductFranco = () => {
 
       <div className="relative h-24  flex items-start ">
         <div
-          className={`flex w-full flex-col gap-6 pt-4 px-2  bg-light_grey ${
-            errors.name == undefined ? 'text-orange' : 'text-red-500'
-          }`}
+          className={`flex w-full flex-col gap-6 pt-4 px-2  bg-light_grey ${errors.name == undefined ? 'text-orange' : 'text-red-500'
+            }`}
         >
           <Input
             variant="static"
@@ -189,9 +188,8 @@ const FormProductFranco = () => {
       </div>
       <div className="relative h-24  flex items-start ">
         <div
-          className={`flex w-full flex-col gap-6 pt-4 px-2  bg-light_grey ${
-            errors.description == undefined ? 'text-orange' : 'text-red-500'
-          }`}
+          className={`flex w-full flex-col gap-6 pt-4 px-2  bg-light_grey ${errors.description == undefined ? 'text-orange' : 'text-red-500'
+            }`}
         >
           <Input
             variant="static"
@@ -280,12 +278,12 @@ const FormProductFranco = () => {
         />
       }
       {
-       selectedCategory === 1 && <div className="flex flex-row">
-        <input type="checkbox" {...register('prescription_required')} />
-        <p>Requiere prescripcion?</p>
-      </div>
+        selectedCategory === 1 && <div className="flex flex-row">
+          <input type="checkbox" {...register('prescription_required')} />
+          <p>Requiere prescripcion?</p>
+        </div>
       }
-      
+
       <div className="flex flex-row">
         <input type="checkbox" {...register('is_fractionable')} />
         <p>Es fracionable?</p>
