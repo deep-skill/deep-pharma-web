@@ -22,6 +22,8 @@ import { CgDanger } from 'react-icons/cg';
 import { IoMdCloseCircleOutline } from 'react-icons/io';
 import InputSelectComponent from './InputSelectComponent';
 import { useRouter } from 'next/navigation';
+import { DialogCreatedProduct } from './DialogCreatedProduct';
+import { DialogCancelNewProduct } from './DialogCancelNewProduct';
 
 const FormProductFranco = () => {
   const {
@@ -56,6 +58,7 @@ const FormProductFranco = () => {
     try {
       const product = await createdProduct(data);
       console.log(product)
+
     } catch (error) {
       console.log(error);
     }
@@ -79,7 +82,6 @@ const FormProductFranco = () => {
     setValue('drug_id', drug.id);
     setSelectedDrug(drug);
   };
-
   const handleCategorySelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedCategoryId = parseInt(event.target.value);
     setValue('category_id', selectedCategoryId);
@@ -301,6 +303,7 @@ const FormProductFranco = () => {
           })} />
       </div>
       <div className="flex flex-col ">
+      
         <button
           className="p-2 m-2 bg-slate-500 rounded"
           onClick={handleSubmit(onSubmit)}
@@ -308,6 +311,8 @@ const FormProductFranco = () => {
           Submit
         </button>
       </div>
+      <DialogCreatedProduct/>
+      <DialogCancelNewProduct/>
     </form>
   );
 };
