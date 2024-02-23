@@ -10,6 +10,8 @@ import Header from '@/components/Header';
 import Profile from '@/components/Profile';
 import SearchBar from '@/components/search-bar/SearchBar';
 import { searchPresentations } from '@/lib/fetch/homeFetch/presentationHomeFetch';
+import SearchedProducts from '@/components/searched-products/SearchedProducts';
+import { SearchPresentation } from '@/interfaces/presentation/Presentation';
 
 const HomePage = async ({
   searchParams,
@@ -22,13 +24,18 @@ const HomePage = async ({
     searchParams?.query !== undefined && searchParams?.query !== null
       ? searchParams.query
       : '';
-  const presentations = await searchPresentations(query);
+  const presentations: SearchPresentation[] = await searchPresentations(query);
 
   return (
     <div>
       <Header />
       <Profile />
       <SearchBar placeholder={'Busca en tu botica'} />
+      {presentations.map((presentation) => (
+        <div key={presentation.id}>
+          <SearchedProducts {...presentation} />
+        </div>
+      ))}
       {presentations.length === 0 && (
         <div>
           <Carousel />

@@ -11,7 +11,9 @@ export default function SearchBar({ placeholder }: { placeholder: string }) {
   const pathname = usePathname();
   const { replace } = useRouter();
   const [isPending, startTransition] = useTransition();
-  const [query, setQuery] = useState(searchParams.get('query')?.toString());
+  const [query, setQuery] = useState(
+    searchParams.get('query')?.toString() ?? '',
+  );
 
   const handleSearch = useDebouncedCallback((query: string) => {
     const params = new URLSearchParams(searchParams);
