@@ -8,6 +8,7 @@ import {
   PresentationForm,
 } from '@/interface/product/product';
 import {
+  CreatedProduct,
   getAllBrandForm,
   getAllCategoryForm,
   getAllDrugForm,
@@ -41,8 +42,14 @@ const FormProductFranco = () => {
     fetchData();
   }, []);
 
-  const onSubmit = (data: CreateProductDto) => {
-    console.log(data);
+  const onSubmit = async (data: CreateProductDto) => {
+    setValue('created_by', 1)
+    try {
+      const product = await CreatedProduct(data);
+      console.log(product)
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const [selectedBrand, setSelectedBrand] = useState<BrandForm | null>(null);
@@ -60,7 +67,7 @@ const FormProductFranco = () => {
 
   const handleDrugSelect = (drug: DrugForm) => {
     setValue('drug_id', drug.id);
-    setSelectedPresentation(drug);
+    setSelectedDrug(drug);
   };
 
   return (
@@ -125,14 +132,18 @@ const FormProductFranco = () => {
       <div className="flex flex-col">
         <label htmlFor="category">Elija categoria</label>
         <select
-          className="p-2"
+          className="h-10 block w-full rounded-t-md bg-gray border-b-2 border-orange text-md text-black placeholder:text-black outline-none"
           {...register('category_id', {
             required: 'Seleccione una categoría',
             valueAsNumber: true,
           })}
         >
+          <option value="" >Seleccione Categoría</option>
           {categorys.map((category) => (
-            <option key={category.id} value={category.id}>
+            <option 
+            key={category.id} 
+            value={category.id}
+            >
               {category.name}
             </option>
           ))}
@@ -168,44 +179,6 @@ const FormProductFranco = () => {
         error={errors.drug_id?.message}
         textSelect="Droga elegida"
       />
-      {/* <div className="flex flex-col">
-        <label htmlFor="brand">Elija marca</label>
-        <select
-          className="p-2"
-          {...register('brand_id', {
-            required: 'Seleccione una marca',
-            valueAsNumber: true,
-          })}
-        >
-          {brands.map((brand) => (
-            <option key={brand.id} value={brand.id}>
-              {brand.name}
-            </option>
-          ))}
-        </select>
-        {errors.brand_id && (
-          <p className="text-red-500">{errors.brand_id.message}</p>
-        )}
-      </div> */}
-      {/* <div className="flex flex-col">
-        <label htmlFor="drug">Elija droga</label>
-        <select
-          className="p-2"
-          {...register('drug_id', {
-            required: 'Seleccione una categoría',
-            valueAsNumber: true,
-          })}
-        >
-          {drugs.map((drug) => (
-            <option key={drug.id} value={drug.id}>
-              {drug.name}
-            </option>
-          ))}
-        </select>
-        {errors.drug_id && (
-          <p className="text-red-500">{errors.drug_id.message}</p>
-        )}
-      </div> */}
       <div className="flex flex-row">
         <input type="checkbox" {...register('prescription_required')} />
         <p>Requiere prescripcion?</p>
@@ -213,6 +186,18 @@ const FormProductFranco = () => {
       <div className="flex flex-row">
         <input type="checkbox" {...register('is_fractionable')} />
         <p>Es fracionable?</p>
+      </div>
+      <div className="flex flex-row justify-between items-center">
+        <p>Precio de venta sugerido</p>
+        <input 
+        type="number" 
+        className="h-10 block w-full rounded-t-md bg-gray border-b-2 border-orange text-md text-black placeholder:text-black outline-none"
+        {...register('new_price', {
+            required: 'El precio es obligatorio',
+            valueAsNumber: true,
+            validate: (value) =>
+              !isNaN(value) || 'Ingrese un valor numérico válido',
+          })}/>
       </div>
       <div className="flex flex-col ">
         <button

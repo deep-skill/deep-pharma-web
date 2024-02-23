@@ -2,10 +2,30 @@
 import {
   BrandForm,
   CategoryForm,
+  CreateProductDto,
   DrugForm,
   PresentationForm,
 } from '@/interface/product/product';
 
+
+export const CreatedProduct  = async (createdProduct : CreateProductDto): Promise<any> => {
+  //const cookieStore = cookies()
+  //const token = cookieStore.get('authToken')
+  try {
+    const res = await fetch(`http://localhost:3001/product`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(createdProduct),
+    });
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
+};
 export const getAllCategoryForm = async (): Promise<CategoryForm[]> => {
   //const cookieStore = cookies()
   //const token = cookieStore.get('authToken')
@@ -14,7 +34,6 @@ export const getAllCategoryForm = async (): Promise<CategoryForm[]> => {
       cache: 'force-cache',
     });
     const data = await res.json();
-    console.log(data);
     return data;
   } catch (error) {
     console.log(error);
@@ -29,7 +48,7 @@ export const getAllPresentationForm = async (
   //const token = cookieStore.get('authToken')
   try {
     const res = await fetch(`http://localhost:3001/presentation/select-create-product?query=${query}`, {
-      cache: 'force-cache',
+      cache: 'no-store'
     });
     const data = await res.json();
     return data;
@@ -44,7 +63,7 @@ export const getAllBrandForm = async (query: string): Promise<BrandForm[]> => {
   //const token = cookieStore.get('authToken')
   try {
     const res = await fetch(`http://localhost:3001/brand/select-create-product?query=${query}`, {
-      cache: 'force-cache',
+      cache: 'no-store',
     });
     const data = await res.json();
     return data;
@@ -59,7 +78,7 @@ export const getAllDrugForm = async (query: string): Promise<DrugForm[]> => {
   //const token = cookieStore.get('authToken')
   try {
     const res = await fetch(`http://localhost:3001/drug/select-create-product?query=${query}`, {
-      cache: 'force-cache',
+      cache: 'no-store',
     });
     const data = await res.json();
     return data;
@@ -73,7 +92,7 @@ export const getCheckBarcode = async (query: number): Promise<boolean> => {
   try {
     const res = await fetch(
       `http://localhost:3001/product/codebar?query=${query}`,
-      { cache: 'force-cache' },
+      { cache: 'no-store'},
     );
     const data = await res.json();
     return data;
