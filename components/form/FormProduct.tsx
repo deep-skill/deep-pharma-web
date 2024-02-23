@@ -20,8 +20,8 @@ import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { CgDanger } from 'react-icons/cg';
 import { IoMdCloseCircleOutline } from 'react-icons/io';
-import { IoCloseCircle } from 'react-icons/io5';
 import InputSelectComponent from './InputSelectComponent';
+import { useRouter } from 'next/navigation';
 
 const FormProduct = () => {
   const {
@@ -34,13 +34,13 @@ const FormProduct = () => {
   const [input, setInput] = useState('');
   const [inputIsCorrect, setInputIsCorrect] = useState<null | boolean>(null);
 
-
   useEffect(() => {
     const fetchData = async () => {
       try {
         const categoryData = await getAllCategoryForm();
         setCategorys(categoryData);
         setValue('created_by', 1)
+        setValue('prescription_required', false)
       } catch (error) {
         console.log(error);
       }
@@ -49,10 +49,10 @@ const FormProduct = () => {
   }, []);
 
 
-  
-  const onSubmit = async(data: CreateProductDto) => {
+
+  const onSubmit = async (data: CreateProductDto) => {
     console.log(data);
-    
+
     try {
       const product = await createdProduct(data);
       console.log(product)
@@ -64,6 +64,7 @@ const FormProduct = () => {
   const [selectedBrand, setSelectedBrand] = useState<BrandForm | null>(null);
   const [selectedPresentation, setSelectedPresentation] = useState<PresentationForm | null>(null);
   const [selectedDrug, setSelectedDrug] = useState<DrugForm | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
   const handleBrandSelect = (brand: BrandForm) => {
     setValue('brand_id', brand.id);
     setSelectedBrand(brand);
@@ -77,6 +78,12 @@ const FormProduct = () => {
   const handleDrugSelect = (drug: DrugForm) => {
     setValue('drug_id', drug.id);
     setSelectedDrug(drug);
+  };
+
+  const handleCategorySelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedCategoryId = parseInt(event.target.value);
+    setValue('category_id', selectedCategoryId);
+    setSelectedCategory(selectedCategoryId);
   };
 
   const handleInput = async (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -95,9 +102,8 @@ const FormProduct = () => {
     <form className="bg-blue-gray-500a p-4">
       <div className="relative h-24  flex items-start ">
         <div
-          className={`flex w-full flex-col gap-6 pt-4 px-2 bg-light_grey ${
-            inputIsCorrect ? 'text-orange' : 'text-red-500 border-red-700'
-          }`}
+          className={`flex w-full flex-col gap-6 pt-4 px-2 bg-light_grey ${inputIsCorrect ? 'text-orange' : 'text-red-500 border-red-700'
+            }`}
         >
           <Input
             variant="static"
@@ -118,7 +124,7 @@ const FormProduct = () => {
                 !isNaN(value) || 'Ingrese un valor numérico válido',
             })}
           />
-         {inputIsCorrect === null || inputIsCorrect === true ? (
+          {inputIsCorrect === null || inputIsCorrect === true ? (
             <IoMdCloseCircleOutline
               size={25}
               className={`text-orange absolute bottom-14 right-3`}
@@ -140,9 +146,8 @@ const FormProduct = () => {
 
       <div className="relative h-24  flex items-start ">
         <div
-          className={`flex w-full flex-col gap-6 pt-4 px-2  bg-light_grey ${
-            errors.name == undefined ? 'text-orange' : 'text-red-500'
-          }`}
+          className={`flex w-full flex-col gap-6 pt-4 px-2  bg-light_grey ${errors.name == undefined ? 'text-orange' : 'text-red-500'
+            }`}
         >
           <Input
             variant="static"
@@ -183,9 +188,8 @@ const FormProduct = () => {
       </div>
       <div className="relative h-24  flex items-start ">
         <div
-          className={`flex w-full flex-col gap-6 pt-4 px-2  bg-light_grey ${
-            errors.description == undefined ? 'text-orange' : 'text-red-500'
-          }`}
+          className={`flex w-full flex-col gap-6 pt-4 px-2  bg-light_grey ${errors.description == undefined ? 'text-orange' : 'text-red-500'
+            }`}
         >
           <Input
             variant="static"
@@ -227,10 +231,8 @@ const FormProduct = () => {
         <label htmlFor="category">Elija categoria</label>
         <select
           className="h-10 block w-full rounded-t-md bg-gray border-b-2 border-orange text-md text-black placeholder:text-black outline-none"
-          {...register('category_id', {
-            required: 'Seleccione una categoría',
-            valueAsNumber: true,
-          })}
+          onChange={handleCategorySelect}
+          value={selectedCategory || ''}
         >
           <option value="" >Seleccione Categoría</option>
           {categorys.map((category) => (
@@ -264,19 +266,24 @@ const FormProduct = () => {
         error={errors.brand_id?.message}
         textSelect="Marca elegida"
       />
-      <InputSelectComponent
-        label="Elija Droga"
-        placeholder="Droga"
-        fetchOptions={getAllDrugForm}
-        onSelect={handleDrugSelect}
-        selectedValue={selectedDrug}
-        error={errors.drug_id?.message}
-        textSelect="Droga elegida"
-      />
-      <div className="flex flex-row">
-        <input type="checkbox" {...register('prescription_required')} />
-        <p>Requiere prescripcion?</p>
-      </div>
+      {
+        selectedCategory === 1 && <InputSelectComponent
+          label="Elija Droga"
+          placeholder="Droga"
+          fetchOptions={getAllDrugForm}
+          onSelect={handleDrugSelect}
+          selectedValue={selectedDrug}
+          error={errors.drug_id?.message}
+          textSelect="Droga elegida"
+        />
+      }
+      {
+        selectedCategory === 1 && <div className="flex flex-row">
+          <input type="checkbox" {...register('prescription_required')} />
+          <p>Requiere prescripcion?</p>
+        </div>
+      }
+
       <div className="flex flex-row">
         <input type="checkbox" {...register('is_fractionable')} />
         <p>Es fracionable?</p>
@@ -306,3 +313,4 @@ const FormProduct = () => {
 };
 
 export default FormProduct;
+
