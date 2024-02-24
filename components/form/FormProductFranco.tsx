@@ -272,7 +272,7 @@ const FormProductFranco = () => {
             ))}
           </Select>
         </div>
-        {/* <div className="rounded-t-md  h-14 bg-light_grey flex flex-col justify-center items-start">
+        <div className="rounded-t-md  h-14 bg-light_grey flex flex-col justify-center items-start">
           <label
             htmlFor="category"
             className="text-orange text-sm mb-1 pl-3 font-roboto"
@@ -296,7 +296,7 @@ const FormProductFranco = () => {
           {errors.category_id && (
             <p className="text-red-500">{errors.category_id.message}</p>
           )}
-        </div> */}
+        </div>
         <InputSelectComponent
           label="Presetacion"
           placeholder="Presentacion"
