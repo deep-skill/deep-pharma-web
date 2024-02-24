@@ -24,6 +24,7 @@ const config: Config = withMT({
       light_grey: '#f3f3f3',
       light_peach: 'fff0eb',
       white_background: '#f0f0f0',
+      light_orange: '#fff0eb',
     },
 
     fontFamily: {
@@ -32,6 +33,25 @@ const config: Config = withMT({
     extend: {
       boxShadow: {
         custom: '0 35px 60px -15px rgba(0, 0, 0, 0.3)',
+      },
+      animation: {
+        'expand-border': 'expandBorder 500ms ease-in-out',
+      },
+      keyframes: {
+        expandBorder: {
+          '0%': {
+            width: 0,
+            left: '50%',
+          },
+          '50%': {
+            width: '100%',
+            left: 0,
+          },
+          '100%': {
+            width: '100%',
+            left: 0,
+          },
+        },
       },
     },
   },

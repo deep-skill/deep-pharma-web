@@ -15,15 +15,17 @@ import {
   getAllPresentationForm,
   getCheckBarcode,
 } from '@/lib/fetch/product/fetchProduct';
-import { Input } from '@material-tailwind/react';
+import { Input, Select, Option } from '@material-tailwind/react';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { CgDanger } from 'react-icons/cg';
-import { IoMdCloseCircleOutline } from 'react-icons/io';
+import { IoIosArrowForward, IoMdCloseCircleOutline } from 'react-icons/io';
 import InputSelectComponent from './InputSelectComponent';
 import { useRouter } from 'next/navigation';
 import { DialogCreatedProduct } from './DialogCreatedProduct';
 import { DialogCancelNewProduct } from './DialogCancelNewProduct';
+import { MdArrowForward, MdArrowForwardIos } from 'react-icons/md';
+import InputText from './InputText';
 
 const FormProductFranco = () => {
   const {
@@ -43,8 +45,8 @@ const FormProductFranco = () => {
       try {
         const categoryData = await getAllCategoryForm();
         setCategorys(categoryData);
-        setValue('created_by', 1)
-        setValue('prescription_required', false)
+        setValue('created_by', 1);
+        setValue('prescription_required', false);
       } catch (error) {
         console.log(error);
       }
@@ -52,14 +54,12 @@ const FormProductFranco = () => {
     fetchData();
   }, []);
 
-
-
   const onSubmit = async (data: CreateProductDto) => {
     console.log(data);
 
     try {
       const product = await createdProduct(data);
-      console.log(product)
+      console.log(product);
       setIsProductCreated(true);
     } catch (error) {
       console.log(error);
@@ -76,10 +76,11 @@ const FormProductFranco = () => {
   };
 
   const [selectedBrand, setSelectedBrand] = useState<BrandForm | null>(null);
-  const [selectedPresentation, setSelectedPresentation] = useState<PresentationForm | null>(null);
+  const [selectedPresentation, setSelectedPresentation] =
+    useState<PresentationForm | null>(null);
   const [selectedDrug, setSelectedDrug] = useState<DrugForm | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
- 
+
   const handleBrandSelect = (brand: BrandForm) => {
     setValue('brand_id', brand.id);
     setSelectedBrand(brand);
@@ -94,7 +95,9 @@ const FormProductFranco = () => {
     setValue('drug_id', drug.id);
     setSelectedDrug(drug);
   };
-  const handleCategorySelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleCategorySelect = (
+    event: React.ChangeEvent<HTMLSelectElement>,
+  ) => {
     const selectedCategoryId = parseInt(event.target.value);
     setValue('category_id', selectedCategoryId);
     setSelectedCategory(selectedCategoryId);
@@ -117,8 +120,9 @@ const FormProductFranco = () => {
       <form className="bg-blue-gray-500a p-4">
         <div className="relative h-24  flex items-start ">
           <div
-            className={`flex w-full flex-col gap-6 pt-4 px-2 bg-light_grey ${inputIsCorrect ? 'text-orange' : 'text-red-500 border-red-700'
-              }`}
+            className={`rounded-t-md flex w-full flex-col gap-6 pt-4 px-2 bg-light_grey ${
+              inputIsCorrect ? 'text-orange' : 'text-red-500 border-red-700'
+            }`}
           >
             <Input
               variant="static"
@@ -161,8 +165,9 @@ const FormProductFranco = () => {
 
         <div className="relative h-24  flex items-start ">
           <div
-            className={`flex w-full flex-col gap-6 pt-4 px-2  bg-light_grey ${errors.name == undefined ? 'text-orange' : 'text-red-500'
-              }`}
+            className={`flex w-full rounded-t-md flex-col gap-6 pt-4 px-2  bg-light_grey ${
+              errors.name == undefined ? 'text-orange' : 'text-red-500'
+            }`}
           >
             <Input
               variant="static"
@@ -203,8 +208,9 @@ const FormProductFranco = () => {
         </div>
         <div className="relative h-24  flex items-start ">
           <div
-            className={`flex w-full flex-col gap-6 pt-4 px-2  bg-light_grey ${errors.description == undefined ? 'text-orange' : 'text-red-500'
-              }`}
+            className={`flex w-full rounded-t-md flex-col gap-6 pt-4 px-2  bg-light_grey ${
+              errors.description == undefined ? 'text-orange' : 'text-red-500'
+            }`}
           >
             <Input
               variant="static"
@@ -242,19 +248,47 @@ const FormProductFranco = () => {
             </p>
           )}
         </div>
-        <div className="flex flex-col">
-          <label htmlFor="category">Elija categoria</label>
+        <div className="flex w-full flex-col justify-end gap-6 relative px-2 h-16 bg-light_grey rounded-t-md text-orange mb-8">
+          <Select
+            onChange={() => {
+              handleCategorySelect;
+            }}
+            value={`${selectedCategory}`}
+            variant="static"
+            label="Categoria*"
+            placeholder={''}
+            arrow={
+              <MdArrowForwardIos
+                size={25}
+                color="#fc6a05"
+                className=" absolute right-0 bottom-0"
+              />
+            }
+          >
+            {categorys.map((category) => (
+              <Option key={category.id} value={`${category.id}`}>
+                {category.name}
+              </Option>
+            ))}
+          </Select>
+        </div>
+        {/* <div className="rounded-t-md  h-14 bg-light_grey flex flex-col justify-center items-start">
+          <label
+            htmlFor="category"
+            className="text-orange text-sm mb-1 pl-3 font-roboto"
+          >
+            Categoria*
+          </label>
           <select
-            className="h-10 block w-full rounded-t-md bg-gray border-b-2 border-orange text-md text-black placeholder:text-black outline-none"
+            className="font-roboto pl-2 w-full  bg-light_grey border-b-2 border-orange text-md text-black placeholder:text-black outline-none"
             onChange={handleCategorySelect}
             value={selectedCategory || ''}
           >
-            <option value="" >Seleccione Categoría</option>
+            <option className="font-roboto" value="">
+              Seleccione Categoría
+            </option>
             {categorys.map((category) => (
-              <option
-                key={category.id}
-                value={category.id}
-              >
+              <option key={category.id} value={category.id}>
                 {category.name}
               </option>
             ))}
@@ -262,9 +296,9 @@ const FormProductFranco = () => {
           {errors.category_id && (
             <p className="text-red-500">{errors.category_id.message}</p>
           )}
-        </div>
+        </div> */}
         <InputSelectComponent
-          label="Elija Presetacion"
+          label="Presetacion"
           placeholder="Presentacion"
           fetchOptions={getAllPresentationForm}
           onSelect={handlePresentationSelect}
@@ -281,8 +315,8 @@ const FormProductFranco = () => {
           error={errors.brand_id?.message}
           textSelect="Marca elegida"
         />
-        {
-          selectedCategory === 1 && <InputSelectComponent
+        {selectedCategory === 1 && (
+          <InputSelectComponent
             label="Elija Droga"
             placeholder="Droga"
             fetchOptions={getAllDrugForm}
@@ -291,17 +325,17 @@ const FormProductFranco = () => {
             error={errors.drug_id?.message}
             textSelect="Droga elegida"
           />
-        }
-        {
-          selectedCategory === 1 && <div className="flex flex-row">
+        )}
+        {selectedCategory === 1 && (
+          <div className="flex flex-row">
             <input type="checkbox" {...register('prescription_required')} />
             <p>Requiere prescripcion?</p>
           </div>
-        }
+        )}
 
-        <div className="flex flex-row">
+        <div className="flex flex-row bg-blue ">
           <input type="checkbox" {...register('is_fractionable')} />
-          <p>Es fracionable?</p>
+          <p className="">Es fracionable?</p>
         </div>
         <div className="flex flex-row justify-between items-center">
           <p>Precio de venta sugerido</p>
@@ -313,10 +347,10 @@ const FormProductFranco = () => {
               valueAsNumber: true,
               validate: (value) =>
                 !isNaN(value) || 'Ingrese un valor numérico válido',
-            })} />
+            })}
+          />
         </div>
         <div className="flex flex-col ">
-
           <button
             className="p-2 m-2 bg-slate-500 rounded"
             onClick={handleSubmit(onSubmit)}
@@ -324,16 +358,17 @@ const FormProductFranco = () => {
             Submit
           </button>
         </div>
-
       </form>
       <div>
-          {isProductCreated &&(
-        <DialogCreatedProduct onOpen={isProductCreated} onClose={resetFormAndDialog} />
-      )}
+        {isProductCreated && (
+          <DialogCreatedProduct
+            onOpen={isProductCreated}
+            onClose={resetFormAndDialog}
+          />
+        )}
         <DialogCancelNewProduct />
       </div>
     </div>
-
   );
 };
 

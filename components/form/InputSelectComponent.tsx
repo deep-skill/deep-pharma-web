@@ -11,7 +11,7 @@ interface InputSelectComponentProps {
   onSelect: (value: any) => void;
   selectedValue: any;
   error: string | undefined;
-  textSelect: string
+  textSelect: string;
 }
 
 const InputSelectComponent = ({
@@ -21,7 +21,7 @@ const InputSelectComponent = ({
   onSelect,
   selectedValue,
   error,
-  textSelect
+  textSelect,
 }: InputSelectComponentProps) => {
   const [inputValue, setInputValue] = useState<string>('');
   const [options, setOptions] = useState<any[]>([]);
@@ -51,7 +51,6 @@ const InputSelectComponent = ({
       setInputValue(input);
       setIsOptionsVisible(true);
     });
-
   };
 
   const handleSelect = (value: any) => {
@@ -63,26 +62,30 @@ const InputSelectComponent = ({
   const handleShowInput = () => {
     setIsOptionsVisible(true);
   };
+  const [isClicked, setIsClicked] = useState(false);
 
+  const handleClick = () => {
+    setIsClicked(!isClicked);
+  };
   return (
-    <div className="flex flex-col bg-gray mt-2 p-2">
+    <div className="flex flex-col bg-light_grey mb-7 p-2 rounded-t-md">
       {isOptionsVisible ? (
         <div className="flex flex-col">
-          <span className='text-orange text-xs'>{label}</span>
+          <span className="text-orange text-xs">{label}</span>
           <input
-            className="h-10 block w-full rounded-t-md bg-gray border-b-2 border-orange text-md text-black placeholder:text-black outline-none"
+            className={`h-10 block w-full rounded-t-md bg-light_grey ${
+              isClicked && 'border-b-2 border-orange animate-expand-border'
+            } text-md text-black placeholder:text-black outline-none`}
             type="text"
             placeholder={placeholder}
             value={inputValue}
             onChange={handleInputChange}
-
+            onClick={handleClick}
           />
-          {
-            isPending && <LoadingIcon />
-          }
+          {isPending && <LoadingIcon />}
           {isOptionsVisible && options.length > 0 && (
             <Card className="w-full" placeholder={undefined}>
-              <List placeholder={undefined} className='bg-gray'>
+              <List placeholder={undefined} className="bg-light_grey">
                 {options.map((option) => (
                   <div key={option.id}>
                     <ListItem
@@ -93,7 +96,6 @@ const InputSelectComponent = ({
                     >
                       {option.name}
                     </ListItem>
-
                   </div>
                 ))}
               </List>
@@ -102,14 +104,17 @@ const InputSelectComponent = ({
           {error && <p className="text-red-500">{error}</p>}
         </div>
       ) : (
-        <div className="flex flex-row justify-between items-center">
-          <div className='flex flex-col'>
-            <span className='text-orange text-xs'>{label}</span>
-            <p>{textSelect}: {selectedValue?.name}</p>
+        <div className="flex flex-row justify-between items-center relative">
+          <div className="flex flex-col">
+            <span className="text-orange text-xs">{label}</span>
+            <p>
+              {textSelect}: {selectedValue?.name}
+            </p>
           </div>
           <IoMdCloseCircleOutline
-            className="mr-3 h-4 w-4 text-orange"
+            className=" text-orange absolute right-1 bottom-2"
             aria-hidden="true"
+            size={25}
             onClick={() => handleShowInput()}
           />
         </div>
@@ -119,4 +124,3 @@ const InputSelectComponent = ({
 };
 
 export default InputSelectComponent;
-
