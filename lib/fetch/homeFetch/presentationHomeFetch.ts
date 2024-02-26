@@ -5,7 +5,7 @@ export const searchPresentations = async (query: string): Promise<SearchPresenta
   try {
     const res = await fetch(
       `http://localhost:3001/presentation/search?query=${query}`,
-      { cache: 'force-cache' }
+      { cache: 'no-store' }
     );
     const data = await res.json();
     return data;
@@ -13,4 +13,4 @@ export const searchPresentations = async (query: string): Promise<SearchPresenta
     console.log(error);
     return [];
   }
-}
+};
