@@ -4,10 +4,7 @@ import deepLogo from '@/public/images/assets/deep-skill-logo.png';
 import onboardingVector from '@/public/images/assets/onboarding/onboarding-vector.png';
 import Link from 'next/link';
 
-const boxShadowStyle = '0px 4px 4px 0px rgba(0, 0, 0, 0.25)';
-
 const OnboardingPage = () => {
-
   return (
     <>
       <div className="h-screen flex flex-col md:flex-row">
@@ -41,4 +38,3 @@ const OnboardingPage = () => {
   );
 };
 export default OnboardingPage;
-

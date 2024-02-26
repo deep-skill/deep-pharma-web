@@ -13,6 +13,7 @@ import { searchPresentations } from '@/lib/fetch/homeFetch/presentationHomeFetch
 import SearchedProducts from '@/components/searched-products/SearchedProducts';
 import { SearchPresentation } from '@/interfaces/presentation/Presentation';
 
+
 const HomePage = async ({
   searchParams,
 }: {
@@ -28,7 +29,6 @@ const HomePage = async ({
 
   return (
     <div>
-      
       <SearchBar placeholder={'Busca en tu botica'} />
       {presentations.map((presentation) => (
         <div key={presentation.id}>
