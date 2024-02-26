@@ -1,16 +1,17 @@
 'use client';
 import Link from 'next/link';
-import deepPharmaImg from '../assets/image/deep_pharma_white.png';
-import { Avatar, Drawer} from '@material-tailwind/react';
-import { useState } from 'react';
 import Image from 'next/image';
-import { IoHomeOutline } from 'react-icons/io5';
+import { Avatar, Drawer } from '@material-tailwind/react';
+import { useState } from 'react';
 import { FiPackage } from 'react-icons/fi';
 import { MdOutlineUpdate, MdPointOfSale } from 'react-icons/md';
 import { usePathname } from 'next/navigation';
-import { IoIosClose } from 'react-icons/io';
+import { IoIosClose, IoMdCloseCircleOutline } from 'react-icons/io';
 import { FaRegUserCircle } from 'react-icons/fa';
-const NavBar = ({ userPicture } : { userPicture?: string | null | undefined}) => {
+import { IoHomeOutline } from 'react-icons/io5';
+import deepPharmaImg from '../assets/image/deep_pharma_white.png';
+import { RxAvatar } from 'react-icons/rx';
+const NavBar = ({ userPicture }: { userPicture?: string | null | undefined }) => {
 
   const [open, setOpen] = useState(false);
   const openDrawer = () => setOpen(true);
@@ -19,14 +20,12 @@ const NavBar = ({ userPicture } : { userPicture?: string | null | undefined}) =>
 
   return (
     <nav className="flex flex-row  m-2 p-2 justify-between gap-2 text-white ">
-   
-      <Avatar
-          onClick={openDrawer} 
-          variant="circular"
-          alt="Perfil usuario"
-          src={userPicture ? userPicture : "https://cdn-icons-png.flaticon.com/512/149/149071.png"}
-          size="lg" placeholder={undefined} />
-     
+      {userPicture ? <Avatar
+        onClick={openDrawer}
+        variant="circular"
+        alt="Perfil usuario"
+        src={userPicture ? userPicture : "https://cdn-icons-png.flaticon.com/512/149/149071.png"}
+        size="lg" placeholder={undefined} />: <RxAvatar />}
       <Drawer
         size={500}
         placement="right"
@@ -96,9 +95,20 @@ const NavBar = ({ userPicture } : { userPicture?: string | null | undefined}) =>
               : ''
               }`}
           >
-            <FaRegUserCircle className="mr-2" size={25}  />
+            <FaRegUserCircle className="mr-2" size={25} />
             <Link href={'/user-profile'} onClick={closeDrawer}>
               Perfil del usuario
+            </Link>
+          </div>
+          <div
+            className={`flex items-center p-3 w-full ${pathName === '/user-profile'
+              ? 'bg-white text-blue-gray-900 rounded-full font-semibold'
+              : ''
+              }`}
+          >
+            <IoMdCloseCircleOutline className="mr-2" size={25} />
+            <Link href={'/api/auth/logout'} onClick={closeDrawer}>
+              Cerrar Sesion
             </Link>
           </div>
         </div>
