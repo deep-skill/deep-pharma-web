@@ -54,6 +54,7 @@ const FormProduct = () => {
   }, []);
 
   const onSubmit = async (data: CreateProductDto) => {
+    console.log(data);
     try {
       const product = await createdProduct(data);
       console.log(product);
@@ -256,7 +257,7 @@ const FormProduct = () => {
               />
             }
           >
-            {categorys.map((category) => (
+            {categorys?.map((category) => (
               <Option key={category.id} value={`${category.id}`}>
                 {category.name}
               </Option>
