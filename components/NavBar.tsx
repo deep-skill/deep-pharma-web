@@ -9,6 +9,7 @@ import { FiPackage } from 'react-icons/fi';
 import { MdOutlineUpdate, MdPointOfSale } from 'react-icons/md';
 import { usePathname } from 'next/navigation';
 import { IoIosClose } from 'react-icons/io';
+import { FaRegUserCircle } from 'react-icons/fa';
 const NavBar = ({ userPicture } : { userPicture?: string | null | undefined}) => {
 
   const [open, setOpen] = useState(false);
@@ -95,9 +96,9 @@ const NavBar = ({ userPicture } : { userPicture?: string | null | undefined}) =>
               : ''
               }`}
           >
-            <MdOutlineUpdate className="mr-2" size={25} />
+            <FaRegUserCircle className="mr-2" size={25}  />
             <Link href={'/user-profile'} onClick={closeDrawer}>
-              Perfil del usiario
+              Perfil del usuario
             </Link>
           </div>
         </div>
