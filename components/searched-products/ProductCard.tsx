@@ -45,7 +45,7 @@ const ProductCard = ({ name, brand, drug, suggested_price, lots }: Props) => {
     <div className="flex flex-col w-46 rounded-lg shadow-lg p-2 content-center">
       <h3 className="text-lg font-bold text-product text-grey_title">{name}</h3>
       <p className="text-product text-sm text-grey_title">
-        S/ {suggested_price.price}
+        S/ {suggested_price?.price}
       </p>
       <div className="flex gap-2 justify-between items-center">
         <p className="text-product text-xs text-gray">{brand.name}</p>

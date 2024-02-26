@@ -1,9 +1,9 @@
 'use client'
+import Link from 'next/link'
+import { useEffect } from 'react'
 import { fetchToken } from '@/lib/fetch/fetchToken';
 import { useUser } from '@auth0/nextjs-auth0/client';
-import { Avatar } from '@material-tailwind/react';
-import Link from 'next/link'
-import React, { useEffect } from 'react'
+import NavBar from './NavBar';
 import { FaRegUserCircle } from 'react-icons/fa'
 
 export const Profile = () => {
@@ -49,12 +49,11 @@ export const Profile = () => {
           Botica Global Salud
         </h2>
       </div>
+      <div>
+      
+      </div>
       <div className='flex justify-center items-center p-4'>
-        <Avatar
-          variant="circular"
-          alt="Remy Sharp"
-          src={user?.picture ? user?.picture : "https://cdn-icons-png.flaticon.com/512/149/149071.png"}
-          size="lg" placeholder={undefined} />
+        <NavBar userPicture={user?.picture}/>
       </div>
     </div>
   )

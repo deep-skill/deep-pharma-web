@@ -29,9 +29,6 @@ const HomePage = async ({
 
   return (
     <div>
-      <Header />
-      {/* <UserProfile/> */}
-      <Profile />
       <SearchBar placeholder={'Busca en tu botica'} />
       {presentations.map((presentation) => (
         <div key={presentation.id}>
@@ -48,6 +45,7 @@ const HomePage = async ({
               image={orangeBackground}
               secImage={hand}
               color={'bg-gradient-to-r from-orange via-orange_lite to-orange'}
+              route={'/home/inventory'}
             />
             <SectionButton
               title={'Crear Venta'}
@@ -55,6 +53,7 @@ const HomePage = async ({
               image={blueBackground}
               secImage={medicinesBag}
               color={'bg-gradient-to-r from-blue via-blue_lite to-blue'}
+              route={'/home/sale'}
             />
             <SectionButton
               title={'Historial de ventas'}
@@ -62,6 +61,7 @@ const HomePage = async ({
               image={greenBackground}
               secImage={calendar}
               color={'bg-gradient-to-r from-green via-green_lite to-green'}
+              route={'/home/sale-history'}
             />
           </div>
         </div>
