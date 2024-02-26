@@ -64,7 +64,7 @@ const NavBar = ({ userPicture } : { userPicture?: string | null | undefined}) =>
               }`}
           >
             <FiPackage className="mr-2" size={25} />
-            <Link href={'/inventory'} onClick={closeDrawer}>
+            <Link href={'/home/inventory'} onClick={closeDrawer}>
               Inventario
             </Link>
           </div>
@@ -75,7 +75,7 @@ const NavBar = ({ userPicture } : { userPicture?: string | null | undefined}) =>
               }`}
           >
             <MdPointOfSale className="mr-2" size={25} />
-            <Link href={'/sales'} onClick={closeDrawer}>
+            <Link href={'/home/sale'} onClick={closeDrawer}>
               Ventas
             </Link>
           </div>
@@ -86,7 +86,7 @@ const NavBar = ({ userPicture } : { userPicture?: string | null | undefined}) =>
               }`}
           >
             <MdOutlineUpdate className="mr-2" size={25} />
-            <Link href={'/sales-history'} onClick={closeDrawer}>
+            <Link href={'/home/sale-history'} onClick={closeDrawer}>
               Historial de ventas
             </Link>
           </div>

@@ -7,11 +7,12 @@ interface Props {
   image: StaticImageData;
   secImage: StaticImageData;
   color: string;
+  route: string;
 }
-const SectionButton = ({ title, subTitle, image, secImage, color }: Props) => {
+const SectionButton = ({ title, subTitle, image, secImage, color , route}: Props) => {
   return (
     <Link
-      href={''}
+      href={route}
       className={`w-11/12  ${color}  rounded-2xl text-white font-bold flex justify-between items-center h-28 m-auto my-8`}
     >
       <div className="w-7/12 md:w-8/12 lg:w-10/12 h-full flex flex-col justify-center px-5 py-10">
