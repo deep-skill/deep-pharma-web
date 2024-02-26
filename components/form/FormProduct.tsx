@@ -38,7 +38,7 @@ const FormProduct = () => {
   const [input, setInput] = useState('');
   const [inputIsCorrect, setInputIsCorrect] = useState<null | boolean>(null);
   const [isProductCreated, setIsProductCreated] = useState(false);
-  const [button] = useState(false);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -54,7 +54,6 @@ const FormProduct = () => {
   }, []);
 
   const onSubmit = async (data: CreateProductDto) => {
-
     try {
       const product = await createdProduct(data);
       console.log(product);

@@ -1,8 +1,10 @@
+import FormProduct from "@/components/form/FormProduct";
+
 const ProductPage = () => {
   return (
-    <div>
-      <h1>Product Page</h1>
-    </div>
+    <section>
+      <FormProduct/>
+    </section>
   );
 };
 export default ProductPage
