@@ -25,6 +25,7 @@ const config: Config = withMT({
       light_peach: 'fff0eb',
       white_background: '#f0f0f0',
       light_orange: '#fff0eb',
+
     },
 
     fontFamily: {
