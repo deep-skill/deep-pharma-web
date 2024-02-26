@@ -11,6 +11,7 @@ import { FaRegUserCircle } from 'react-icons/fa';
 import { IoHomeOutline } from 'react-icons/io5';
 import deepPharmaImg from '../assets/image/deep_pharma_white.png';
 import { RxAvatar } from 'react-icons/rx';
+import { RiProductHuntLine } from 'react-icons/ri';
 const NavBar = ({ userPicture }: { userPicture?: string | null | undefined }) => {
 
   const [open, setOpen] = useState(false);
@@ -87,6 +88,17 @@ const NavBar = ({ userPicture }: { userPicture?: string | null | undefined }) =>
             <MdOutlineUpdate className="mr-2" size={25} />
             <Link href={'/home/sale-history'} onClick={closeDrawer}>
               Historial de ventas
+            </Link>
+          </div>
+          <div
+            className={`flex items-center p-3 w-full ${pathName === '/product'
+              ? 'bg-white text-blue-gray-900 rounded-full font-semibold'
+              : ''
+              }`}
+          >
+            <RiProductHuntLine className="mr-2" size={25} />
+            <Link href={'/product'} onClick={closeDrawer}>
+              Crear producto
             </Link>
           </div>
           <div
