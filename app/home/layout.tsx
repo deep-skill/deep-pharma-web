@@ -4,11 +4,11 @@ import Profile from "@/components/Profile";
 
 const HomeLayout = ({ children }: { children: React.ReactNode }) => {
     return (
-        <div>
+        <section>
             <Header />
             <Profile />
             {children}
-        </div>
+        </section>
     );
 };
 

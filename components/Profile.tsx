@@ -1,10 +1,10 @@
 'use client'
+import Link from 'next/link'
+import { useEffect } from 'react'
 import { fetchToken } from '@/lib/fetch/fetchToken';
 import { useUser } from '@auth0/nextjs-auth0/client';
-import Link from 'next/link'
-import React, { useEffect } from 'react'
-import { FaRegUserCircle } from 'react-icons/fa'
 import NavBar from './NavBar';
+import { FaRegUserCircle } from 'react-icons/fa'
 
 export const Profile = () => {
   const { user, error, isLoading } = useUser();
