@@ -19,14 +19,12 @@ import { Input, Select, Option, Checkbox } from '@material-tailwind/react';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { CgDanger } from 'react-icons/cg';
-import { IoIosArrowForward, IoMdCloseCircleOutline } from 'react-icons/io';
+import {  IoMdCloseCircleOutline } from 'react-icons/io';
 import InputSelectComponent from './InputSelectComponent';
-import { useRouter } from 'next/navigation';
 import { DialogCreatedProduct } from './DialogCreatedProduct';
 import { DialogCancelNewProduct } from './DialogCancelNewProduct';
-import { MdArrowForward, MdArrowForwardIos } from 'react-icons/md';
-import InputText from './InputText';
-import { onChange } from '@material-tailwind/react/types/components/select';
+import {  MdArrowForwardIos } from 'react-icons/md';
+
 
 const FormProduct = () => {
   const {
@@ -56,7 +54,6 @@ const FormProduct = () => {
   }, []);
 
   const onSubmit = async (data: CreateProductDto) => {
-    console.log(data);
 
     try {
       const product = await createdProduct(data);
