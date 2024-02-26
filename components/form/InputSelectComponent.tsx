@@ -107,9 +107,7 @@ const InputSelectComponent = ({
         <div className="flex flex-row justify-between items-center relative">
           <div className="flex flex-col">
             <span className="text-orange text-xs">{label}</span>
-            <p>
-              {textSelect}: {selectedValue?.name}
-            </p>
+            <p className="text-sm text-grey_title">{selectedValue?.name}</p>
           </div>
           <IoMdCloseCircleOutline
             className=" text-orange absolute right-1 bottom-2"

@@ -334,7 +334,11 @@ const FormProductFranco = () => {
         )}
 
         <div className="flex flex-row bg-blue ">
-          <input type="checkbox" {...register('is_fractionable')} />
+          <input
+            type="checkbox"
+            color="orange"
+            {...register('is_fractionable')}
+          />
           <p className="">Es fracionable?</p>
         </div>
         <div className="flex flex-row justify-between items-center">

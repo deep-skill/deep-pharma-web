@@ -15,7 +15,7 @@ import {
   getAllPresentationForm,
   getCheckBarcode,
 } from '@/lib/fetch/product/fetchProduct';
-import { Input, Select, Option } from '@material-tailwind/react';
+import { Input, Select, Option, Checkbox } from '@material-tailwind/react';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { CgDanger } from 'react-icons/cg';
@@ -67,12 +67,7 @@ const FormProduct = () => {
     }
   };
   const resetFormAndDialog = () => {
-    // Reset the form using react-hook-form reset method
-    // You might need to import reset from react-hook-form
-    // and define the form reference like const { register, handleSubmit, reset, ... }
     reset();
-
-    // Close the DialogCreatedProduct
     setIsProductCreated(false);
   };
 
@@ -95,11 +90,6 @@ const FormProduct = () => {
   const handleDrugSelect = (drug: DrugForm) => {
     setValue('drug_id', drug.id);
     setSelectedDrug(drug);
-  };
-  const handleCategorySelect = (value: string = '1') => {
-    const selectedCategoryId = parseInt(value);
-    setValue('category_id', selectedCategoryId);
-    setSelectedCategory(selectedCategoryId);
   };
 
   const handleInput = async (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -248,13 +238,18 @@ const FormProduct = () => {
           )}
         </div>
         <div className="flex w-full flex-col justify-end gap-6 relative px-2 h-16 bg-light_grey rounded-t-md text-orange mb-8">
+          <p className="absolute bottom-1 left-2 text-grey_title">
+            {selectedCategory ? categorys[selectedCategory - 1].name : ''}
+          </p>
           <Select
             value={selectedCategory?.toString() || ''}
             variant="static"
             label="Categoria*"
-            onChange={(value = '1') => {
+            selected={(index) => index}
+            onChange={(value) => {
+              if (value === undefined) return;
               setValue('category_id', parseInt(value));
-              // setSelectedCategory(parseInt(value));
+              setSelectedCategory(parseInt(value));
             }}
             placeholder={''}
             arrow={
@@ -272,34 +267,9 @@ const FormProduct = () => {
             ))}
           </Select>
         </div>
-        {/* <div className="rounded-t-md  h-14 bg-light_grey flex flex-col justify-center items-start">
-          <label
-            htmlFor="category"
-            className="text-orange text-sm mb-1 pl-3 font-roboto"
-          >
-            Categoria*
-          </label>
-          <select
-            className="font-roboto pl-2 w-full  bg-light_grey border-b-2 border-orange text-md text-black placeholder:text-black outline-none"
-            onChange={handleCategorySelect}
-            value={selectedCategory || ''}
-          >
-            <option className="font-roboto" value="">
-              Seleccione Categoría
-            </option>
-            {categorys.map((category) => (
-              <option key={category.id} value={category.id}>
-                {category.name}
-              </option>
-            ))}
-          </select>
-          {errors.category_id && (
-            <p className="text-red-500">{errors.category_id.message}</p>
-          )}
-        </div> */}
         <InputSelectComponent
-          label="Presetacion"
-          placeholder="Presentacion"
+          label="Presetación"
+          placeholder="Presentación"
           fetchOptions={getAllPresentationForm}
           onSelect={handlePresentationSelect}
           selectedValue={selectedPresentation}
@@ -307,7 +277,7 @@ const FormProduct = () => {
           textSelect="Presetacion elegida"
         />
         <InputSelectComponent
-          label="Elija marca"
+          label="Marca"
           placeholder="Marca"
           fetchOptions={getAllBrandForm}
           onSelect={handleBrandSelect}
@@ -327,38 +297,48 @@ const FormProduct = () => {
           />
         )}
         {selectedCategory === 1 && (
-          <div className="flex flex-row">
-            <input type="checkbox" {...register('prescription_required')} />
-            <p>Requiere prescripcion?</p>
-          </div>
+          <Checkbox
+            {...register('prescription_required')}
+            color="deep-orange"
+            crossOrigin={undefined}
+            label="Producto controlado"
+          />
         )}
-
-        <div className="flex flex-row bg-blue ">
-          <input type="checkbox" {...register('is_fractionable')} />
-          <p className="">Es fracionable?</p>
-        </div>
-        <div className="flex flex-row justify-between items-center">
-          <p>Precio de venta sugerido</p>
-          <input
-            type="number"
-            className="h-10 block w-full rounded-t-md bg-gray border-b-2 border-orange text-md text-black placeholder:text-black outline-none"
-            {...register('new_price', {
-              required: 'El precio es obligatorio',
-              valueAsNumber: true,
-              validate: (value) =>
-                !isNaN(value) || 'Ingrese un valor numérico válido',
-            })}
+        <div className="flex flex-col">
+          <Checkbox
+            {...register('is_fractionable')}
+            color="deep-orange"
+            crossOrigin={undefined}
+            label="Fraccionable"
           />
         </div>
-        <div className="flex flex-col ">
-          <button
-            className="p-2 m-2 bg-slate-500 rounded"
-            onClick={handleSubmit(onSubmit)}
-          >
-            Submit
-          </button>
+        <div className="flex flex-row justify-between items-center px-1 my-4">
+          <p>Precio de venta sugerido</p>
+          <div className="flex justify-around items-center w-24 ">
+            <p>S/ </p>
+            <input
+              type="number"
+              placeholder="00.00"
+              className="h-10 block w-16 pl-3 rounded-t-md bg-light_grey border-b-2 border-orange text-md text-black placeholder:text-black outline-none"
+              {...register('new_price', {
+                required: 'El precio es obligatorio',
+                valueAsNumber: true,
+                validate: (value) =>
+                  !isNaN(value) || 'Ingrese un valor numérico válido',
+              })}
+            />
+          </div>
         </div>
       </form>
+      <div className="flex justify-around  items-center">
+        <button
+          className="p-2 m-2 bg-slate-500 rounded-full w-2/5 bg-orange text-white font-bold"
+          onClick={handleSubmit(onSubmit)}
+        >
+          Guardar
+        </button>
+        <DialogCancelNewProduct />
+      </div>
       <div>
         {isProductCreated && (
           <DialogCreatedProduct
@@ -366,7 +346,6 @@ const FormProduct = () => {
             onClose={resetFormAndDialog}
           />
         )}
-        <DialogCancelNewProduct />
       </div>
     </div>
   );
